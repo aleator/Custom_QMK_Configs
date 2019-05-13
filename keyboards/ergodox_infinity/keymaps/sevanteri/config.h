@@ -1,0 +1,31 @@
+#pragma once
+
+#include "../../config.h"
+
+#ifdef TAPPING_TERM
+#undef TAPPING_TERM
+#endif
+#define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
+#define TAPPING_FORCE_HOLD
+
+#ifdef PERMISSIVE_HOLD
+#undef PERMISSIVE_HOLD
+#endif
+#define PERMISSIVE_HOLD_PER_KEY
+
+#ifdef IGNORE_MOD_TAP_INTERRUPT
+#undef IGNORE_MOD_TAP_INTERRUPT
+#endif
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define NO_ACTION_ONESHOT
+
+#define COMBO_TERM 35
+#define COMBO_ALLOW_ACTION_KEYS
+#define COMBO_VARIABLE_LEN
+
+#define LEADER_TIMEOUT 500
+#define LEADER_PER_KEY_TIMING
