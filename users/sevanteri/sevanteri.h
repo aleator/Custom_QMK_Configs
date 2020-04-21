@@ -3,6 +3,7 @@
 
 enum customKeycodes {
     PLACEHOLDER = SAFE_RANGE, // can always be here
+    CODEBLK, // `code`
 };
 
 enum my_layers {

@@ -1,4 +1,6 @@
+#include "timer.h"
 #include "sevanteri.h"
+#include "sendstring_finnish.h"
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { // {{{
@@ -6,8 +8,28 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { // {{{
 }
 // }}}
 
+static uint16_t code_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
-    return process_record_keymap(keycode, record);
+    switch (keycode) {
+        case CODEBLK:
+            if (record->event.pressed) {
+                code_timer = timer_read();
+            } else {
+                if (timer_elapsed(code_timer) > TAPPING_TERM) {
+                    SEND_STRING(
+                        "````````````"
+                        SS_TAP(X_LEFT)
+                        SS_TAP(X_LEFT)
+                        SS_TAP(X_LEFT)
+                    );
+                } else {
+                    SEND_STRING("``" SS_TAP(X_LEFT) "``");
+                }
+            }
+            return false;
+        default:
+            return process_record_keymap(keycode, record);
+    }
 } // }}}
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode) { // {{{
