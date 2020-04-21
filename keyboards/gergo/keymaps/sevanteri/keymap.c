@@ -8,7 +8,8 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "sevanteri.h"
+/* #include "sevanteri.h" */
+#include "sevanteri.c"
 #include "gergo.h"
 #include "wrappers.h"
 #include "keymap_swedish.h"
@@ -44,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  _________________QWERTY_L1_________________, /**/     /**/     /**/ /**/     /**/     _________________QWERTY_R1_________________, SE_QUOT,
     CTRLESC, _________________QWERTY_L2_________________, SE_DIAE, /**/     /**/ /**/     SE_ARNG, _________________QWERTY_R2_________________, MT_AE,
     LSFT_LT, _________________QWERTY_L3_________________, KC_LEAD, TD_HEMD,  /**/ KC_LEAD, _______, _________________QWERTY_R3_________________, KC_RSFT,
-    /******/ /******/ /******/ /******/ KC_BTN2, KC_BTN1, LALTSPC, LGUIBSP, /**/ FUNCENT, RSFTSPC, MO(SYMB), PSCRINS
+    /******/ /******/ /******/ /******/ ____QWERTY_L4___, _QWERTY_THUMBL__, /**/  _QWERTY_THUMBR__, ____QWERTY_R4___
     ),
 // }}}
 /* Keymap 1: numbers and Symbols layer {{{
@@ -68,10 +69,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------'                     `--------------'
  */
 [SYMB] = LAYOUT_gergo_wrapper(
-    SE_SECT,       _________________SYMB_L1___________________, /******/       /******/ /****/ /******/ /******/ _________________SYMB_R1___________________, SE_PLUS,
-    LSFT(SE_SECT), _________________SYMB_L2___________________, RALT(SE_DIAE), /******/ /****/ /******/ _______, _________________SYMB_R2___________________, LSFT(SE_PLUS),
-    RALT(SE_LABK), _________________SYMB_L3___________________, _______,       _______, /****/ _______, _______, _________________SYMB_R3___________________, RALT(SE_PLUS),
-    /******/       /******/ /******/ /******/ _______, _______, KC_DOT,        _______, /****/ _______, _______, _______, SE_ACUT
+    SE_SECT,       _________________SYMB_L1___________________, /******/   /******/ /****/ /******/ /******/ _________________SYMB_R1___________________, SE_PLUS,
+    LSFT(SE_SECT), _________________SYMB_L2___________________, RALT(SE_DIAE), /**/ /****/ /******/ _______, _________________SYMB_R2___________________, LSFT(SE_PLUS),
+    RALT(SE_LABK), _________________SYMB_L3___________________, _______, _______,   /****/ _______, _______, _________________SYMB_R3___________________, RALT(SE_PLUS),
+    /******/       /******/ /******/ /******/ ____SYMB_L4_____, ___SYMB_THUMBL__,   /****/ ___SYMB_THUMBR__, ____SYMB_R4_____
     ),
 // }}}
 /* Keymap 2: Function layer {{{
@@ -98,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(STUF), _________________FUNCL_L1__________________, /******/ /******/ /****/ /******/ /******/ _________________FUNCL_R1__________________, _______,
     _______,  _________________FUNCL_L2__________________, KC_PGUP, /******/ /****/ /******/ _______, _________________FUNCL_R2__________________, _______,
     _______,  _________________FUNCL_L3__________________, KC_PGDN, _______, /****/ _______, _______, _________________FUNCL_R3__________________, KC_MNXT,
-    /******/  /******/ /******/ /******/ _______, _______, _______, KC_DEL,  /****/ _______, _______, _______, KC_RALT
+    /******/  /******/ /******/ /******/ ____FUNC_L4_____, ___FUNC_THUMBL__, /****/ ___FUNC_THUMBR__, ____FUNC_R4_____
     ),
 // }}}
 /* Keymap 3: stuff {{{
@@ -160,27 +161,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   }}}
  */
 
-/* Combo map {{{
- *
- * ,-------------------------------------------.                         ,-------------------------------------------.
- * |      ALT  1   |  2   |  3   |  4   |  5   |                         |  6   |  7   |  8   |  9   |  0  ALT       |
- * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+F-MUTE--|
- * |        |      |      |      |      |      |      |           |      |      <      /      >      |      |        |
- * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
- * |        |    PIPE     |      |      |      |      |           |      |      {      [      ]      }      \        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *                        .------.   .------.                                 .------.   .-----.
- *                        |      |MMB|      |                                 |      |   |     |
- *                        '------'   '------'                                 `------.   '-----'
- *                                        ,-------.       ,-------.
- *                                        |       |       |       |
- *                                 ,------|-------|       |-------|------.
- *                                 |      |       |       |       |      |
- *                                 |      |       |       |       |      |
- *                                 |      |       |       |       |      |
- *                                 `--------------'       `--------------'
- }}}*/
-#include "combos.h"
 
 // joystick stuff {{{
 #ifdef THUMBSTICK
@@ -238,15 +218,21 @@ void matrix_scan_user(void) { // {{{
     }
 
     SEQ_ONE_KEY(KC_V) {
-        tap_code(KC_END);
-        register_code(KC_LSFT);
         tap_code(KC_HOME);
+        register_code(KC_LSFT);
+        tap_code(KC_END);
         unregister_code(KC_LSFT);
     }
     SEQ_ONE_KEY(KC_S) {
-        tap_code(KC_END);
-        register_code(KC_LSFT);
         tap_code(KC_HOME);
+        register_code(KC_LSFT);
+        tap_code(KC_END);
+        unregister_code(KC_LSFT);
+        tap_code(KC_BSPC);
+    }
+    SEQ_ONE_KEY(KC_C) {
+        register_code(KC_LSFT);
+        tap_code(KC_END);
         unregister_code(KC_LSFT);
         tap_code(KC_BSPC);
     }

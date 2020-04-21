@@ -1,3 +1,4 @@
+#pragma once
 #include QMK_KEYBOARD_H
 #include "sevanteri.h"
 #include "process_tap_dance.h"

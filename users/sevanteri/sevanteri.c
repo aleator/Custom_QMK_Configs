@@ -1,6 +1,13 @@
+#pragma once
 #include "timer.h"
 #include "sevanteri.h"
 #include "sendstring_finnish.h"
+
+#include "combos.h"
+
+#ifdef TAP_DANCE_ENABLE
+#include "tapdance.c"
+#endif
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { // {{{
@@ -76,3 +83,17 @@ uint16_t get_tapping_term(uint16_t keycode) {
     }
 }
 // }}}
+
+// custom combo terms for combos {{{
+uint16_t get_combo_term(uint8_t index, combo_t *combo) {
+    if (IS_MOD(combo->keycode)) return TAPPING_TERM;
+
+    return COMBO_TERM;
+}
+// }}}
+
+bool get_combo_must_hold(uint8_t index, combo_t *combo) {
+    if (IS_MOD(combo->keycode)) return true;
+
+    return false;
+}

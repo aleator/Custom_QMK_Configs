@@ -28,3 +28,20 @@
 #define _________________FUNCL_R1__________________   KC_WBAK, CTRLTAB, CSFTTAB, KC_WFWD, KC_VOLU
 #define _________________FUNCL_R2__________________   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLD
 #define _________________FUNCL_R3__________________   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_MPLY
+
+
+#define ____QWERTY_L4___    KC_BTN2,  KC_BTN1
+#define ____SYMB_L4_____    _______,  CODEBLK
+#define ____FUNC_L4_____    _______,  _______
+
+#define ____QWERTY_R4___    MO(SYMB), PSCRINS
+#define ____SYMB_R4_____    _______,  SE_ACUT
+#define ____FUNC_R4_____    _______,  KC_RALT
+
+#define _QWERTY_THUMBL__    LALTSPC, LGUIBSP
+#define ___SYMB_THUMBL__    KC_DOT,  _______
+#define ___FUNC_THUMBL__    _______, KC_DEL
+
+#define _QWERTY_THUMBR__    FUNCENT, RSFTSPC
+#define ___SYMB_THUMBR__    _______, _______
+#define ___FUNC_THUMBR__    _______, _______

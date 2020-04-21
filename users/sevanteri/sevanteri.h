@@ -45,6 +45,7 @@ enum my_layers {
 #define CTRLTAB LCTL(KC_TAB)
 #define CSFTTAB LCTL(LSFT(KC_TAB))
 
+#ifdef TAP_DANCE_ENABLE
 // tap dances
 enum tapdance_buttons {
     TD_HOME_END = 0,
@@ -54,3 +55,4 @@ enum tapdance_buttons {
 #define HOMEND TD(TD_HOME_END)
 #define PSCRINS TD(TD_PSCR_INS)
 #define TD_HEMD TD(TD_HOME_END_MOD)
+#endif
