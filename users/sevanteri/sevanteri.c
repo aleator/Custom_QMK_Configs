@@ -39,7 +39,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
     }
 } // }}}
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode) { // {{{
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { // {{{
     switch (keycode) {
         case CTRLESC:
         case LGUIBSP:
@@ -74,7 +74,7 @@ uint16_t get_permissive_hold(uint16_t keycode, keyrecord_t *record) { // {{{
 // }}}
 
 // custom tapping terms for keys {{{
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SYMBSPC:
             return TAPPING_TERM;
