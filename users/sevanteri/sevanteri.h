@@ -32,14 +32,15 @@ enum my_layers {
 // no permissive hold for homerow keys
 #define MT_A  LCTL_T(KC_A)
 #define MT_S  LSFT_T(KC_S)
-#define MT_D  LGUI_T(KC_D)
-#define MT_F  LSFT_T(KC_F)
-#define MT_G  LGUI_T(KC_G)
-#define MT_J  RSFT_T(KC_J)
-#define MT_K  LGUI_T(KC_K)
+#define MT_D  KC_D
+#define MT_F  KC_F
+#define MT_G  KC_G
+#define MT_H  KC_H
+#define MT_J  KC_J
+#define MT_K  KC_K
 #define MT_L  LALT_T(KC_L)
 #define MT_OE RCTL_T(SE_ODIA)
-#define MT_AE LCTL_T(SE_ADIA)
+#define MT_AE RGUI_T(SE_ADIA)
 
 // other keys
 #define CTRLTAB LCTL(KC_TAB)

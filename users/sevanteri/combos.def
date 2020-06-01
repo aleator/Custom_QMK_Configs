@@ -1,50 +1,69 @@
-COMB(ALTN1,            LALT(KC_1),    KC_TAB,  KC_Q)
-COMB(ALTN2,            LALT(KC_2),    KC_TAB,  KC_W)
-COMB(ALTN3,            LALT(KC_3),    KC_TAB,  KC_E)
-COMB(ALTN4,            LALT(KC_4),    KC_TAB,  KC_R)
-COMB(ALTN5,            LALT(KC_5),    KC_TAB,  KC_T)
-COMB(ALTN6,            LALT(KC_6),    SE_QUOT, KC_Y)
-COMB(ALTN7,            LALT(KC_7),    SE_QUOT, KC_U)
-COMB(ALTN8,            LALT(KC_8),    SE_QUOT, KC_I)
-COMB(ALTN9,            LALT(KC_9),    SE_QUOT, KC_O)
-COMB(ALTN0,            LALT(KC_0),    SE_QUOT, KC_P)
+// alt + number for browser tabs and tmux
+COMB(ALTN1,            LALT(KC_1),    LALTSPC,  KC_Q)
+COMB(ALTN2,            LALT(KC_2),    LALTSPC,  KC_W)
+COMB(ALTN3,            LALT(KC_3),    LALTSPC,  KC_E)
+COMB(ALTN4,            LALT(KC_4),    LALTSPC,  KC_R)
+COMB(ALTN5,            LALT(KC_5),    LALTSPC,  KC_T)
+COMB(ALTN6,            LALT(KC_6),    RSFTSPC, KC_Y)
+COMB(ALTN7,            LALT(KC_7),    RSFTSPC, KC_U)
+COMB(ALTN8,            LALT(KC_8),    RSFTSPC, KC_I)
+COMB(ALTN9,            LALT(KC_9),    RSFTSPC, KC_O)
+COMB(ALTN0,            LALT(KC_0),    RSFTSPC, KC_P)
 
-COMB(MUTE,             KC_MUTE,       KC_VOLU, KC_VOLD)
+// just numbers
+COMB(N1,    KC_1,    KC_TAB,  KC_Q)
+COMB(N2,    KC_2,    KC_TAB,  KC_W)
+COMB(N3,    KC_3,    KC_TAB,  KC_E)
+COMB(N4,    KC_4,    KC_TAB,  KC_R)
+COMB(N5,    KC_5,    KC_TAB,  KC_T)
+COMB(N6,    KC_6,    SE_QUOT, KC_Y)
+COMB(N7,    KC_7,    SE_QUOT, KC_U)
+COMB(N8,    KC_8,    SE_QUOT, KC_I)
+COMB(N9,    KC_9,    SE_QUOT, KC_O)
+COMB(N0,    KC_0,    SE_QUOT, KC_P)
 
-COMB(LESSTHAN,         SE_LABK,       KC_H,    KC_J)
-COMB(SLASH,            LSFT(KC_7),    KC_J,    KC_K)
-COMB(GREATERTHAN,      LSFT(SE_LABK), KC_K,    KC_L)
+// right hand home row
+COMB(LESSTHAN,         SE_LABK,       MT_H,    MT_J)
+COMB(SLASH,            LSFT(KC_7),    MT_J,    MT_K)
+COMB(BACKSLASH,        RALT(SE_PLUS), MT_J,    MT_K, MT_OE)
+COMB(GREATERTHAN,      LSFT(SE_LABK), MT_K,    MT_L)
 COMB(QUESTION,         LSFT(SE_PLUS), MT_OE,   MT_AE)
-COMB(EQUALS,           LSFT(KC_0),    KC_L,    MT_OE)
-COMB(PARENLEFT,        LSFT(KC_8),    KC_H,    KC_K)
-COMB(PARENRIGHT,       LSFT(KC_9),    KC_J,    KC_L)
-COMB(BACKSLASH,        RALT(SE_PLUS), KC_J, KC_K, MT_OE)
+COMB(EQUALS,           LSFT(KC_0),    MT_L,    MT_OE)
 
-COMB(CURLYBRACELEFT,   RALT(KC_7),    KC_N,    KC_M)
-COMB(SQUAREBRACELEFT,  RALT(KC_8),    KC_M,    KC_COMM)
-COMB(SQUAREBRACERIGHT, RALT(KC_9),    KC_COMM, KC_DOT)
-COMB(CURLYBRACERIGHT,  RALT(KC_0),    KC_DOT,  KC_SLSH)
+COMB(PARENLEFT,         LSFT(KC_8),   MT_H, MT_K)
+COMB(PARENRIGHT,        LSFT(KC_9),   MT_J, MT_L)
+COMB(SQUAREBRACELEFT,   RALT(KC_8),   MT_H, MT_K, MT_L)
+COMB(SQUAREBRACERIGHT,  RALT(KC_9),   MT_J, MT_L, MT_OE)
+COMB(CURLYBRACELEFT,    RALT(KC_7),   MT_H, MT_J, MT_K, MT_L)
+COMB(CURLYBRACERIGHT,   RALT(KC_0),   MT_J, MT_K, MT_L, MT_OE)
+
+COMB(NEXTTAB,             CTRLTAB,      MT_H, MT_J, MT_K)
+COMB(PREVTAB,             CSFTTAB,      MT_J, MT_K, MT_L)
+
+// right hand bottom row
 COMB(SEMICOLON,        SE_SCLN,       KC_N,    SE_COMM)
 COMB(DOUBLECOLON,      SE_COLN,       KC_M,    SE_DOT)
 COMB(UNDERSCORE,       SE_UNDS,       SE_COMM, SE_MINS)
 
-COMB(PLUS,             SE_PLUS,       SE_QUOT, MT_AE)
+// left hand home row
+COMB(EXCLAMATIONP,     LSFT(KC_1),    MT_A,    MT_S)
+COMB(DQUOTES,          LSFT(KC_2),    MT_S,    MT_D)
+COMB(HASH,             LSFT(KC_3),    MT_D,    MT_F)
+COMB(PERCENTG,         LSFT(KC_5),    MT_F,    MT_G)
 
-COMB(EXCLAMATIONP,     LSFT(KC_1),    MT_A,    KC_S)
-COMB(EXCLAMATIONPS,    LSFT(KC_1),    MT_A,    MT_S)
-COMB(DQUOTES,          LSFT(KC_2),    KC_S,    KC_D)
-COMB(DQUOTESS,         LSFT(KC_2),    MT_S,    KC_D)
-COMB(HASH,             LSFT(KC_3),    KC_D,    KC_F)
-COMB(PERCENT,          LSFT(KC_5),    KC_F,    KC_G)
-COMB(PERCENTG,         LSFT(KC_5),    KC_F,    MT_G)
-
+// left hand bottow row
 COMB(PIPE,             RALT(SE_LABK), KC_X,    KC_Z)
 COMB(AT,               RALT(KC_2),    KC_X,    KC_C)
 COMB(DOLLAR,           RALT(KC_4),    KC_C,    KC_V)
 
+// right hand top-ish row
 COMB(CTRLSIX,          LCTL(KC_6),    SE_ARNG, KC_Y)
 COMB(WBAK,             KC_WBAK,      KC_Y, KC_U, KC_I)
 COMB(WFWD,             KC_WFWD,      KC_U, KC_I, KC_O)
+COMB(PLUS,             SE_PLUS,       SE_QUOT, MT_AE)
+
+// randoms
+COMB(MUTE,             KC_MUTE,       KC_VOLU, KC_VOLD)
 
 COMB(MOUSE3,           KC_BTN3,       KC_BTN1, KC_BTN2)
 COMB(MOUSESCRLD,       KC_WH_D,       KC_MS_L, KC_MS_D)
@@ -52,7 +71,8 @@ COMB(MOUSESCRLD2,      KC_WH_D,       KC_N, KC_M, KC_COMM)
 COMB(MOUSESCRLU,       KC_WH_U,       KC_MS_D, KC_MS_U)
 COMB(MOUSESCRLU2,      KC_WH_U,       KC_M, KC_COMM, KC_DOT)
 
-COMB(NEXTTAB,             CTRLTAB,      KC_H, KC_J, KC_K)
-COMB(PREVTAB,             CSFTTAB,      KC_J, KC_K, KC_L)
 
 COMB(THUMBCTL,          KC_LCTL,   LALTSPC, LGUIBSP)
+
+COMB(testmod,           KC_LSFT,   KC_E, KC_R)
+COMB(testmod2,          KC_LCTL,   KC_E, KC_R, KC_T)
