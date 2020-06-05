@@ -127,8 +127,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, CMB_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    )
+    ),
 //}}}
+/* Mouse {{{
+ *
+ * ,-------------------------------------------.                         ,-------------------------------------------.
+ * |        |      |      |      |      |      |                         |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *                        .------.   .------.                                 .------.   .-----.
+ *                        |      |   |      |                                 |      |   |     |
+ *                        '------'   '------'                                 `------.   '-----'
+ *                                        ,-------.       ,-------.
+ *                                        |       |       |       |
+ *                                 ,------|-------|       |-------|------.
+ *                                 |      |       |       |       |      |
+ *                                 |      |       |       |       |      |
+ *                                 |      |       |       |       |      |
+ *                                 `--------------'       `--------------'
+ */
+[MOUS] = LAYOUT_gergo_wrapper(
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                           KC_TRNS, _________________MOUS_R2___________________, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, _________________MOUS_R3___________________, KC_TRNS,
+                                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         ___MOUS_THUMBR__, ____MOUS_R4_____
+    )
+//   }}}
+
+
 };
 
 /* Keymap template {{{
@@ -152,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------'       `--------------'
  */
 /*
-[SYMB] = LAYOUT_gergo(
+,[SYMB] = LAYOUT_gergo(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,

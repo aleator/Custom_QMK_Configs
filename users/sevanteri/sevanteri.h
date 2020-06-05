@@ -9,6 +9,7 @@ enum customKeycodes {
 enum my_layers {
     BASE = 0, // default layer
     SYMB, // numbers and symbols
+    MOUS,
     GAME, // gaming layer
     FUNCL, // function layer
     STUF, // reset and maybe some other stuff

@@ -63,16 +63,10 @@ COMB(WFWD,             KC_WFWD,      KC_U, KC_I, KC_O)
 COMB(PLUS,             SE_PLUS,       SE_QUOT, MT_AE)
 
 // randoms
-COMB(MUTE,             KC_MUTE,       KC_VOLU, KC_VOLD)
+COMB(SLEEP,     KC_SLEP,   KC_Q, KC_P)
+COMB(WAKE,      KC_WAKE,   KC_TAB, SE_QUOT)
+COMB(MUTE,      KC_MUTE,   KC_VOLU, KC_VOLD)
 
-COMB(MOUSE3,           KC_BTN3,       KC_BTN1, KC_BTN2)
-COMB(MOUSESCRLD,       KC_WH_D,       KC_MS_L, KC_MS_D)
-COMB(MOUSESCRLD2,      KC_WH_D,       KC_N, KC_M, KC_COMM)
-COMB(MOUSESCRLU,       KC_WH_U,       KC_MS_D, KC_MS_U)
-COMB(MOUSESCRLU2,      KC_WH_U,       KC_M, KC_COMM, KC_DOT)
-
-
-COMB(THUMBCTL,          KC_LCTL,   LALTSPC, LGUIBSP)
 
 COMB(testmod,           KC_LSFT,   KC_E, KC_R)
-COMB(testmod2,          KC_LCTL,   KC_E, KC_R, KC_T)
+COMB(testmod2,          LSFT_T(KC_X),   KC_E, KC_R, KC_T)

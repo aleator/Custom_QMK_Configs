@@ -27,16 +27,24 @@
 
 #define _________________FUNCL_R1__________________   KC_WBAK, CTRLTAB, CSFTTAB, KC_WFWD, KC_VOLU
 #define _________________FUNCL_R2__________________   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLD
-#define _________________FUNCL_R3__________________   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_MPLY
+#define _________________FUNCL_R3__________________   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_MPLY
 
 
-#define ____QWERTY_L4___    KC_BTN2,  KC_BTN1
+#define _________________MOUS_R2___________________   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______
+#define _________________MOUS_R3___________________   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______
+
+
+#define ___________________________________________   _______, _______, _______, _______, _______
+
+
+#define ____QWERTY_L4___    KC_BTN2,  LT(MOUS, KC_BTN1)
 #define ____SYMB_L4_____    _______,  CODEBLK
 #define ____FUNC_L4_____    _______,  _______
 
 #define ____QWERTY_R4___    MO(SYMB), PSCRINS
 #define ____SYMB_R4_____    _______,  SE_ACUT
 #define ____FUNC_R4_____    _______,  KC_RALT
+#define ____MOUS_R4_____    KC_BTN3,  _______
 
 #define _QWERTY_THUMBL__    LALTSPC, LGUIBSP
 #define ___SYMB_THUMBL__    KC_DOT,  _______
@@ -45,3 +53,4 @@
 #define _QWERTY_THUMBR__    FUNCENT, RSFTSPC
 #define ___SYMB_THUMBR__    _______, _______
 #define ___FUNC_THUMBR__    _______, _______
+#define ___MOUS_THUMBR__    KC_BTN1, KC_BTN2
