@@ -1,10 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "keymap_finnish.h"
 #include <sendstring_finnish.h>
+#include "config.h"
 
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 300
-#define TAPPING_TERM 200
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -65,9 +63,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   1  |   2  |   3  |   4  |   5  |           |   6  |   7  |   8  |   9  |   0  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  Tab | Left | Down |  Up  | Right|           |      |   -  |   =  |   [  |   ]  |
+ * |  Tab | Left | Down |  Up  | Right|           | PgUp |   -  |   =  |   [  |   "  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  Ctrl|   `  |  GUI |  Alt |      |           |      |      |   /  |   \  |   '  |
+ * |  Ctrl|   `  |  GUI |  Alt |      |           | PgDwn|  /   |   |  |   \  |   '  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  | Del  | LOWER|      |    |      | RAISE|      |
@@ -76,10 +74,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_RAISE] = LAYOUT( \
-  KC_1,    KC_2,    KC_3,           KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    \
-  KC_TAB,  KC_LEFT, KC_UP,     KC_UP,   KC_RGHT,      _______, KC_MINS, KC_EQL,  KC_LBRC,  KC_RBRC, \
-  KC_LCTL, KC_GRV,  KC_GUI, KC_LALT, _______,      _______, KC_SLSH, KC_PIPE, KC_BSLS,  KC_QUOT, \
-                    KC_DEL,         _______, _______,      _______, _______, _______                    \
+  KC_1,    KC_2,    KC_3,      KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    \
+  KC_TAB,  KC_LEFT, KC_UP,     KC_UP,   KC_RGHT,      KC_PGUP, KC_MINS, FI_EQL,  FI_LBRC,  FI_DQUO, \
+  KC_LCTL, FI_GRV,  KC_RGUI,   KC_LALT, _______,      KC_PGDOWN, FI_SLSH, FI_PIPE, FI_BSLS,  FI_QUOT, \
+                    KC_DEL,    _______, _______,      _______, _______, _______                    \
 ),
 
 /* Lower
@@ -87,9 +85,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   !  |   @  |   #  |   $  |   %  |           |   ^  |   &  |   *  |   (  |   )  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  Esc |      |      |      |  ~   |           | PgUp |   _  |   +  |   {  |   }  |
+ * |  Esc |      |      |      |  ~   |           |   ?  |   _  |   +  |   {  |   }  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  Caps|      |      |      |      |           | PgDwn|   ,  |   .  |   |  |   "  |
+ * |  Caps|      |      |      |      |           |      |   ,  |   .  |   [  |   "  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      | LOWER|      |    |      | RAISE|      |
@@ -98,9 +96,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_LOWER] = LAYOUT( \
-  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC,   KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, \
-  KC_ESC,  _______, _______, _______, KC_TILD,      KC_PGUP,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, \
-  KC_CAPS, _______, _______, _______, _______,      KC_PGDOWN, FI_COMM, FI_DOT, KC_PIPE,  KC_DQT,  \
+  FI_EXLM, FI_AT,   FI_HASH, FI_DLR,  FI_PERC,      FI_CIRC,   FI_AMPR, FI_ASTR, FI_LPRN, FI_RPRN, \
+  KC_ESC,  _______, _______, _______, FI_TILD,      FI_QUES,   FI_UNDS, FI_PLUS, FI_LCBR, FI_RCBR, \
+  KC_CAPS, _______, _______, _______, _______,      _______, FI_COMM, FI_DOT,  FI_LBRC,  FI_RBRC,  \
                     _______, _______, _______,      KC_ENT,    _______,   _______                  \
 ),
 
@@ -111,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |  F11 |  F12 |      |      | WLEFT|           |WRIGHT|      |STRT  |Taskmg|caltde|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | Reset|      |      |      |      |           |      |      |      |      |      |
+ * | Reset|      |      |      |      |           |      |      |      |      |  `   |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      | LOWER|      |    |      | RAISE|      |
@@ -122,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] =  LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, \
   KC_F11,  KC_F12,  _______, _______, WINLEFT,      WINRGHT, _______, START,   TSKMGR,  CALTDEL, \
-  RESET,   _______, _______, _______, _______,      _______, _______, _______, _______,  _______, \
+  RESET,   _______, _______, _______, _______,      _______, _______, _______, _______,  FI_GRV , \
                     _______, _______, _______,      _______, _______, _______                    \
 )
 };
@@ -197,7 +195,7 @@ void matrix_scan_user(void) {
 
     SEQ_ONE_KEY(KC_S) {
       // When I press KC_LEAD and then s, this sends Ctrl-s ; _S_ave
-      SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+      SEND_STRING(SS_LCTRL(SS_TAP(X_S)));
     }
     SEQ_ONE_KEY(KC_X) {
       // When I press KC_LEAD and then x, this sends Ctrl-x ; 
@@ -206,6 +204,10 @@ void matrix_scan_user(void) {
     SEQ_ONE_KEY(KC_C) {
       // When I press KC_LEAD and then c, this sends Ctrl-c ; _C_opy
       SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+    }
+    SEQ_TWO_KEYS(KC_C,KC_C) {
+      // When I press KC_LEAD and then cc, this sends Ctrl-x ; _C_ut
+      SEND_STRING(SS_LCTRL(SS_TAP(X_X)));
     }
     SEQ_ONE_KEY(KC_V) {
       // When I press KC_LEAD and then c, this sends Ctrl-v ;
@@ -224,6 +226,9 @@ void matrix_scan_user(void) {
       SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_RIGHT)))SS_TAP(X_DEL));
     }
     SEQ_TWO_KEYS(KC_C,KC_A) {
+      SEND_STRING(SS_LCTRL(SS_TAP(X_A)SS_TAP(X_C)));
+    }
+    SEQ_TWO_KEYS(KC_D,KC_A) {
       // When I press KC_LEAD and then d b, this sends shift-Ctrl-left, del ; _C_opy _A_ll
       SEND_STRING(SS_LCTRL(SS_TAP(X_A)SS_TAP(X_C)));
     }
