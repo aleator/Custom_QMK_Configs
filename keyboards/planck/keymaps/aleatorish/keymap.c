@@ -80,7 +80,8 @@ enum planck_keycodes {
   SYM_TYPE,
   SYM_EQ, //*
   SYM_NEQ, //*
-  SYM_HOMEDIR //*
+  SYM_HOMEDIR, //*
+  SYM_EXECHERE //*
 };
 
 // <# Custom keycodes #>
@@ -161,10 +162,10 @@ enum COMBO_KEYS {semicolon_combo_key,
                  square_bracket_combo_key,
                  };
 
-const uint16_t PROGMEM semicolon_combo[] = {KC_COMM, FI_ODIA, COMBO_END};
-const uint16_t PROGMEM paren_combo[] = {FI_LPRN, FI_RPRN, COMBO_END};
+const uint16_t PROGMEM semicolon_combo[]      = {KC_COMM, KC_DOT, COMBO_END};
+const uint16_t PROGMEM paren_combo[]          = {FI_LPRN, FI_RPRN, COMBO_END};
 const uint16_t PROGMEM square_bracket_combo[] = {MAC_SQLBR, MAC_SQRBR, COMBO_END};
-const uint16_t PROGMEM bracket_combo[] = {MAC_LBR, MAC_RBR, COMBO_END};
+const uint16_t PROGMEM bracket_combo[]        = {MAC_LBR, MAC_RBR, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = 
     { [semicolon_combo_key]      = COMBO(semicolon_combo, S(KC_COMMA))
@@ -215,12 +216,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|    Another would be the ESC in the middle
  * | Brite| Ctrl | Alt  | GUI  |↓↓Bspc| SPACE/ .    |↑↑Ent | GUI  | Alt  | Ctrl | Shift|
  * `-----------------------------------------------------------------------------------'
- */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_Q  ,  KC_W,    KC_E,    KC_R,             KC_T,   TD(TD_SAVE_QUIT),  TD(TD_COPY_CUT), KC_Y,    KC_U,    KC_I,    ODIA_HOLD,    KC_P   ,
     KC_A  ,  KC_S,    KC_D,    LT(_NAVI,KC_F),   KC_G,   MT(MOD_HYPR,KC_ESC),      RGUI(KC_V), KC_H,    KC_J,    KC_K,    KC_L   , FI_ADIA ,  // KC_SCLN
     KC_Z   , KC_X,    KC_C,    KC_V,             KC_B,    RGUI(KC_Z), ALE_COLON, KC_N,    KC_M,    LT(COMMA,KC_COMM), QUESTION_HOLD , FI_ODIA ,
     BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LT(LOWER,KC_BSPC),   KC_SPC_TAB,  KC_SPC_TAB,  LT(RAISE,KC_ENT),   KC_RGUI, KC_RALT, KC_LCTL, KC_RSFT
+),
+ */
+/* Qwerty ORIG
+ * ,-----------------------------------------------------------------------------------.
+ * | ESC  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | TAB  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   Ä  |  Ö   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | HYPER|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   -  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | LSFT | Ctrl | Alt  | GUI  |↓↓BKSP|    Space    |↑↑Ent | GUI  | ALT  | CTRL | LSFT |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_QWERTY] = LAYOUT_planck_grid(
+    KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,             KC_T,    KC_Y,    KC_U,             KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_TAB,   KC_A,    KC_S,    KC_D,    LT(_NAVI,KC_F),   KC_G,    KC_H,    KC_J,             KC_K,    KC_L,    FI_ADIA, FI_ODIA,
+    MT(KC_HYPR,S(KC_DOT)), KC_Z,    KC_X,    KC_C,    KC_V,             KC_B,    KC_N,    KC_M,             KC_COMM, KC_DOT,  FI_MINS,  KC_ENT ,
+    KC_LSFT,  KC_LCTL, KC_LALT, KC_LGUI, LT(LOWER,KC_BSPC),KC_SPC,  KC_SPC,  LT(RAISE,KC_ENT), KC_RGUI, KC_RALT, KC_LCTL, KC_RSFT
 ),
 
 /* <# Colemak #> 
@@ -265,15 +283,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Del  | ~/   |  =>  |  /=  |  ==  |  F1  |  F2  |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  "   |   -  |   [  |   ]  |  \   |
+ * |  F3  |  ./  |  F5  |  F6  |  F7  |  F8  |  F9  |  "   |   -  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_ESC, FI_EXLM, FI_AT,   FI_HASH, FI_DLR,  FI_PERC, FI_CIRC, FI_AMPR,    FI_ASTR,    FI_LPRN,  FI_RPRN, MAC_SLASH,
-    KC_DEL,  SYM_HOMEDIR,   SYM_LFATARR,   SYM_NEQ,   SYM_EQ,   KC_F1,   KC_F2,   FI_UNDS,    FI_PLUS,    MAC_LBR,  MAC_RBR, MAC_PIPE,
-    KC_F3, KC_F4,   KC_F5,   KC_F6,   KC_F7,  KC_F8,  KC_F9,  S(KC_2), FI_MINS,    MAC_SQLBR, MAC_SQRBR,  MAC_BACKSLASH,
+    KC_ESC, FI_EXLM,     FI_AT,   FI_HASH, FI_DLR,  FI_PERC, FI_CIRC, FI_AMPR,    FI_ASTR,    FI_LPRN,  FI_RPRN, MAC_SLASH,
+    KC_DEL, SYM_HOMEDIR, SYM_LFATARR,   SYM_NEQ,   SYM_EQ,   KC_F1,   KC_F2,   FI_UNDS,    FI_PLUS,    MAC_LBR,  MAC_RBR, MAC_PIPE,
+    KC_F3,  SYM_EXECHERE,KC_F5,   KC_F6,   KC_F7,  KC_F8,  KC_F9,  S(KC_2), FI_MINS,    MAC_SQLBR, MAC_SQRBR,  MAC_BACKSLASH,
     _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
 ),
 /* Comma mode
@@ -314,20 +332,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* <# Navi #>
  * ,-----------------------------------------------------------------------------------.
- * | ESC  |      |ALTTAB|      |      |      |      |      |      | S-TAB| Tab  |      |
+ * | ESC  |      |ALTTAB|      |      |      |      | S-TAB|      |      | Tab  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Alt  | Ctrl | GUI  | **** |      |      |      |      |  ←   |   ↓  |  ↑   |  →   |
+ * |      | Alt  | Ctrl | GUI  | **** |      |      |  ←   |   ↓  |  ↑   |  →   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | HOME | Pg↓  | Pg↑  | END  |
+ * |      |      |      |      |      |      |      | HOME | Pg↓  | Pg↑  | END  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NAVI] = LAYOUT_planck_grid(
-    KC_ESC , _______, ALT_TAB, _______, _______,  _______, _______, _______,   S(KC_TAB),  _______, KC_TAB, _______,
-    KC_LALT, KC_LCTL, KC_LGUI, _______, _______,  _______, _______, KC_LEFT,   KC_DOWN, KC_UP,   KC_RGHT, _______,
-    _______, _______, _______, _______, _______,  _______, _______, KC_HOME,   KC_PGDN, KC_PGUP, KC_END, _______,
-    _______, _______, _______, _______, _______,  _______, _______, _______,   _______, _______, _______, _______
+    KC_ESC , _______, ALT_TAB, _______, _______,  _______, _______, _______, S(KC_TAB), _______, KC_TAB,  _______,
+    _______, KC_LALT, KC_LCTL, KC_LGUI, _______,  _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, 
+    _______, _______, _______, _______, _______,  _______, _______, KC_HOME, KC_PGDN,   KC_PGUP, KC_END,  _______,
+    _______, _______, _______, _______, _______,  _______, _______, _______, _______,   _______, _______, _______
 ),
 
 /* <# Raise #> 
@@ -567,6 +585,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  SIMPLE(SYM_EQ, SS_DOWN(e5)SS_TAP(27)SS_TAP(27)SS_UP(e5))// "=="
  SIMPLE(SYM_NEQ, SS_DOWN(e5)SS_TAP(24)SS_TAP(27)SS_UP(e5))// "/="
  SIMPLE(SYM_HOMEDIR, SS_DOWN(e6)SS_TAP(30)SS_UP(e6)SS_TAP(2c)SS_DOWN(e5)SS_TAP(24)SS_UP(e5))// "~/"
+ SIMPLE(SYM_EXECHERE, SS_TAP(2c)SS_DOWN(e5)SS_TAP(24)SS_UP(e5))// "./"
 
     case QWERTY:
       if (record->event.pressed) {
