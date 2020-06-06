@@ -10,18 +10,6 @@ COMB(ALTN8,            LALT(KC_8),    RSFTSPC, KC_I)
 COMB(ALTN9,            LALT(KC_9),    RSFTSPC, KC_O)
 COMB(ALTN0,            LALT(KC_0),    RSFTSPC, KC_P)
 
-// just numbers
-COMB(N1,    KC_1,    KC_TAB,  KC_Q)
-COMB(N2,    KC_2,    KC_TAB,  KC_W)
-COMB(N3,    KC_3,    KC_TAB,  KC_E)
-COMB(N4,    KC_4,    KC_TAB,  KC_R)
-COMB(N5,    KC_5,    KC_TAB,  KC_T)
-COMB(N6,    KC_6,    SE_QUOT, KC_Y)
-COMB(N7,    KC_7,    SE_QUOT, KC_U)
-COMB(N8,    KC_8,    SE_QUOT, KC_I)
-COMB(N9,    KC_9,    SE_QUOT, KC_O)
-COMB(N0,    KC_0,    SE_QUOT, KC_P)
-
 // right hand home row
 COMB(LESSTHAN,         SE_LABK,       MT_H,    MT_J)
 COMB(SLASH,            LSFT(KC_7),    MT_J,    MT_K)
