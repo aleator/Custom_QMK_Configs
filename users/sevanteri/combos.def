@@ -6,25 +6,26 @@ COMB(WFWD,      KC_WFWD,        MY_U,  MY_I,  MY_O)
 COMB(PLUS,      SE_PLUS,        MY_P,  MY_OE)
 COMB(QUOT,      SE_QUOT,        MY_O,  MY_P)
 COMB(ASTERISK,  LSFT(SE_QUOT),  MY_I,  MY_O,  MY_P)
+COMB(ACUT,      SE_ACUT,        MY_OE, MY_O)
 //}}}
 // right hand home row {{{
-COMB(LESSTHAN,         SE_LABK,       MY_H,    MY_J)
-COMB(SLASH,            LSFT(KC_7),    MY_J,    MY_K)
-COMB(BACKSLASH,        RALT(SE_PLUS), MY_J,    MY_K, MY_OE)
-COMB(GREATERTHAN,      LSFT(SE_LABK), MY_K,    MY_L)
-COMB(QUESTION,         LSFT(SE_PLUS), MY_OE,   MY_AE)
-COMB(EQUALS,           LSFT(KC_0),    MY_L,    MY_OE)
-COMB(AE,               SE_ADIA,       MY_J,    MY_OE)
+COMB(LESSTHAN,          SE_LABK,        MY_H,  MY_J)
+COMB(SLASH,             LSFT(KC_7),     MY_J,  MY_K)
+COMB(BACKSLASH,         RALT(SE_PLUS),  MY_J,  MY_K,  MY_OE)
+COMB(GREATERTHAN,       LSFT(SE_LABK),  MY_K,  MY_L)
+COMB(QUESTION,          LSFT(SE_PLUS),  MY_L,  MY_K,  MY_OE)
+COMB(EQUALS,            LSFT(KC_0),     MY_L,  MY_OE)
+COMB(AE,                SE_ADIA,        MY_J,  MY_OE)
 
-COMB(PARENLEFT,         LSFT(KC_8),   MY_H, MY_K)
-COMB(PARENRIGHT,        LSFT(KC_9),   MY_J, MY_L)
-COMB(SQUAREBRACELEFT,   RALT(KC_8),   MY_H, MY_K, MY_L)
-COMB(SQUAREBRACERIGHT,  RALT(KC_9),   MY_J, MY_L, MY_OE)
-COMB(CURLYBRACELEFT,    RALT(KC_7),   MY_H, MY_J, MY_K, MY_L)
-COMB(CURLYBRACERIGHT,   RALT(KC_0),   MY_J, MY_K, MY_L, MY_OE)
+COMB(PARENLEFT,         LSFT(KC_8),     MY_H,  MY_K)
+COMB(PARENRIGHT,        LSFT(KC_9),     MY_J,  MY_L)
+COMB(SQUAREBRACELEFT,   RALT(KC_8),     MY_H,  MY_K,  MY_L)
+COMB(SQUAREBRACERIGHT,  RALT(KC_9),     MY_J,  MY_L,  MY_OE)
+COMB(CURLYBRACELEFT,    RALT(KC_7),     MY_H,  MY_J,  MY_K,  MY_L)
+COMB(CURLYBRACERIGHT,   RALT(KC_0),     MY_J,  MY_K,  MY_L,  MY_OE)
 
-COMB(NEXTTAB,             CTRLTAB,      MY_H, MY_J, MY_K)
-COMB(PREVTAB,             CSFTTAB,      MY_J, MY_K, MY_L)
+COMB(NEXTTAB,           CTRLTAB,        MY_H,  MY_J,  MY_K)
+COMB(PREVTAB,           CSFTTAB,        MY_J,  MY_K,  MY_L)
 //}}}
 // right hand bottom row {{{
 COMB(SEMICOLON,        SE_SCLN,       MY_N,    MY_COMM)
@@ -37,30 +38,30 @@ COMB(DIAERESIS,  SE_DIAE,  MY_G,  MY_T)
 COMB(SECT,       SE_SECT,  MY_A,  MY_Q)
 //}}}
 // left hand home row {{{
-COMB(EXCLAMATIONP,     LSFT(KC_1),    MY_A,    MY_S)
-COMB(DQUOTES,          LSFT(KC_2),    MY_S,    MY_D)
-COMB(HASH,             LSFT(KC_3),    MY_D,    MY_F)
-COMB(PERCENTG,         LSFT(KC_5),    MY_F,    MY_G)
-COMB(AF_TAB,           KC_TAB,        MY_A,    MY_F)
-COMB(AZ_ESC,           KC_ESC,        MY_A,    MY_Z)
+COMB(EXCLAMATIONP,  LSFT(KC_1),  MY_A,  MY_S)
+COMB(DQUOTES,       LSFT(KC_2),  MY_S,  MY_D)
+COMB(HASH,          LSFT(KC_3),  MY_D,  MY_F)
+COMB(PERCENTG,      LSFT(KC_5),  MY_F,  MY_G)
+COMB(AF_TAB,        KC_TAB,      MY_A,  MY_F)
+COMB(AZ_ESC,        KC_ESC,      MY_A,  MY_Z)
 //}}}
 // left hand bottow row {{{
-COMB(PIPE,             RALT(SE_LABK), MY_X,    MY_Z)
-COMB(AT,               RALT(KC_2),    MY_X,    MY_C)
-COMB(DOLLAR,           RALT(KC_4),    MY_C,    MY_V)
+COMB(PIPE,     RALT(SE_LABK),  MY_X,     MY_Z)
+COMB(AT,       RALT(KC_2),     MY_X,     MY_C)
+COMB(DOLLAR,   RALT(KC_4),     MY_C,     MY_V)
 
-COMB(LEFTSPC,  KC_SPC,   MY_THL2, MY_THL3)
+COMB(LEFTSPC,  KC_SPC,         MY_THL2,  MY_THL3)
 //}}}
 
 // randoms {{{
-COMB(SLEEP,     KC_SLEP,   MY_Q, MY_P)
-COMB(MUTE,      KC_MUTE,   KC_VOLU, KC_VOLD)
+COMB(SLEEP,  KC_SLEP,  MY_Q,     MY_P)
+COMB(MUTE,   KC_MUTE,  KC_VOLU,  KC_VOLD)
 
 // COMB(RESET,    RESET,    MY_Z, MY_X, MY_C, MY_V, MY_M, MY_COMM, MY_DOT, MY_MINS)
 
 
-COMB(testmod,           KC_LSFT,   MY_E, MY_R)
-COMB(testmod2,          LSFT_T(KC_X),   MY_E, MY_R, MY_T)
+COMB(testmod,   KC_LSFT,       MY_E,  MY_R)
+COMB(testmod2,  LSFT_T(KC_X),  MY_E,  MY_R,  MY_T)
 
 // alt + number for browser tabs and tmux {{{
 COMB(ALTN1,            LALT(KC_1),    MY_THL2,  MY_Q)
