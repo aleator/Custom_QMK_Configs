@@ -45,6 +45,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { // {{
         case LGUIBSP:
         case LCTLBSP:
         case LALTSPC:
+        case LALTESC:
         case LSFT_LT:
         case RSFTSPC:
             return false;
