@@ -15,60 +15,52 @@ enum my_layers {
     STUF, // reset and maybe some other stuff
 };
 
-// mod taps (no ignore_mod_tap_interrupt)
-#define  CTRLESC  LCTL_T(KC_ESC)   // hold esc for ctrl
-#define  LGUIESC  LGUI_T(KC_ESC)   // hold esc for super
-#define  LGUIBSP  LGUI_T(KC_BSPC)  // hold backspace for super (left hand)
-#define  LCTLBSP  LCTL_T(KC_BSPC)  // hold backspace for ctrl (left hand)
-#define  LALTSPC  LALT_T(KC_SPC)   // hold space for alt (left hand)
-#define  LALTESC  LALT_T(KC_ESC)   // hold thumb esc for alt (left hand)
-#define  LSFT_LT  LSFT_T(SE_LABK)  // left shift is ISO/ on tap
+// left thumb keys (no ignore_mod_tap_interrupt)
+#define  MY_THL1  LT(MOUS, KC_BTN1)
+#define  MY_THL2  LALT_T(KC_ESC)
+#define  MY_THL3  LGUI_T(KC_BSPC)
 
-// tap mods (ignore_mod_tap_interrupt)
-#define FUNCENT LT(FUNCL, KC_ENT) // hold enter for func layer (right hand)
-#define SYMBSPC LT(SYMB, KC_SPC) // hold space for symbol layer (right hand)
-#define RSFTSPC RSFT_T(KC_SPC) // hold space for shift
+// right thumb keys
+#define  MY_THR3  LT(FUNCL, KC_ENT)
+#define  MY_THR2  RSFT_T(KC_SPC)
+#define  MY_THR1  LT(SYMB, KC_TAB)
 
-#define SYMBENT LT(SYMB, KC_ENT) // hold enter for symbol layer (right hand)
+// basic alpha keys {{{
+#define  MY_Q  KC_Q
+#define  MY_W  KC_W
+#define  MY_E  KC_E
+#define  MY_R  KC_R
+#define  MY_T  KC_T
+#define  MY_Y  KC_Y
+#define  MY_U  KC_U
+#define  MY_I  KC_I
+#define  MY_O  KC_O
+#define  MY_P  KC_P
 
-// no permissive hold for top row keys
-#define  MT_Q  KC_Q
-#define  MT_W  KC_W
-#define  MT_E  KC_E
-#define  MT_R  KC_R
-#define  MT_T  KC_T
-#define  MT_Y  KC_Y
-#define  MT_U  KC_U
-#define  MT_I  KC_I
-#define  MT_O  KC_O
-#define  MT_P  KC_P
+#define MY_A  LCTL_T(KC_A)
+#define MY_S  LSFT_T(KC_S)
+#define MY_D  KC_D
+#define MY_F  KC_F
+#define MY_G  KC_G
+#define MY_H  KC_H
+#define MY_J  KC_J
+#define MY_K  KC_K
+#define MY_L  LALT_T(KC_L)
+#define MY_OE RCTL_T(SE_ODIA)
 
-// no permissive hold for homerow keys
-#define MT_A  LCTL_T(KC_A)
-#define MT_S  LSFT_T(KC_S)
-#define MT_D  KC_D
-#define MT_F  KC_F
-#define MT_G  KC_G
-#define MT_H  KC_H
-#define MT_J  KC_J
-#define MT_K  KC_K
-#define MT_L  LALT_T(KC_L)
-#define MT_OE RCTL_T(SE_ODIA)
+#define MY_AE RGUI_T(SE_ADIA)
 
-#define MT_AE RGUI_T(SE_ADIA)
-
-// no permissive hold for bottom row keys
-#define  MT_Z     KC_Z
-#define  MT_X     KC_X
-#define  MT_C     KC_C
-#define  MT_V     KC_V
-#define  MT_B     KC_B
-#define  MT_N     KC_N
-#define  MT_M     KC_M
-#define  MT_COMM  KC_COMM
-#define  MT_DOT   KC_DOT
-#define  MT_MINS  SE_MINS
-
+#define  MY_Z     KC_Z
+#define  MY_X     KC_X
+#define  MY_C     KC_C
+#define  MY_V     KC_V
+#define  MY_B     KC_B
+#define  MY_N     KC_N
+#define  MY_M     KC_M
+#define  MY_COMM  KC_COMM
+#define  MY_DOT   KC_DOT
+#define  MY_MINS  SE_MINS
+//}}}
 
 // other keys
 #define CTRLTAB LCTL(KC_TAB)

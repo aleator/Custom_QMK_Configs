@@ -3,13 +3,13 @@
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define LAYOUT_gergo_wrapper(...)            LAYOUT_gergo(__VA_ARGS__)
 
-#define _________________QWERTY_L1_________________   MT_Q, MT_W, MT_E, MT_R, MT_T
-#define _________________QWERTY_L2_________________   MT_A, MT_S, MT_D, MT_F, MT_G
-#define _________________QWERTY_L3_________________   MT_Z, MT_X, MT_C, MT_V, MT_B
+#define _________________QWERTY_L1_________________   MY_Q, MY_W, MY_E, MY_R, MY_T
+#define _________________QWERTY_L2_________________   MY_A, MY_S, MY_D, MY_F, MY_G
+#define _________________QWERTY_L3_________________   MY_Z, MY_X, MY_C, MY_V, MY_B
 
-#define _________________QWERTY_R1_________________   MT_Y, MT_U, MT_I,    MT_O,   MT_P
-#define _________________QWERTY_R2_________________   MT_H, MT_J, MT_K,    MT_L,   MT_OE
-#define _________________QWERTY_R3_________________   MT_N, MT_M, MT_COMM, MT_DOT, MT_MINS
+#define _________________QWERTY_R1_________________   MY_Y, MY_U, MY_I,    MY_O,   MY_P
+#define _________________QWERTY_R2_________________   MY_H, MY_J, MY_K,    MY_L,   MY_OE
+#define _________________QWERTY_R3_________________   MY_N, MY_M, MY_COMM, MY_DOT, MY_MINS
 
 
 #define _________________SYMB_L1___________________   KC_1,       KC_2,       KC_3,       KC_4,       KC_5
@@ -41,20 +41,20 @@
 #define ___________________________________________   _______, _______, _______, _______, _______
 
 
-#define ____QWERTY_L4___    KC_BTN2,  LT(MOUS, KC_BTN1)
+#define ____QWERTY_L4___    KC_BTN2,  MY_THL1
 #define ____SYMB_L4_____    _______,  CODEBLK
 #define ____FUNC_L4_____    _______,  MO(STUF)
 
-#define ____QWERTY_R4___    LT(SYMB, KC_TAB), PSCRINS
+#define ____QWERTY_R4___    MY_THR1,  PSCRINS
 #define ____SYMB_R4_____    _______,  SE_ACUT
 #define ____FUNC_R4_____    _______,  KC_RALT
 #define ____MOUS_R4_____    KC_BTN3,  _______
 
-#define _QWERTY_THUMBL__    LALTESC, LGUIBSP
+#define _QWERTY_THUMBL__    MY_THL2, MY_THL3
 #define ___SYMB_THUMBL__    KC_DOT,  _______
 #define ___FUNC_THUMBL__    _______, KC_DEL
 
-#define _QWERTY_THUMBR__    FUNCENT, RSFTSPC
+#define _QWERTY_THUMBR__    MY_THR3, MY_THR2
 #define ___SYMB_THUMBR__    _______, _______
 #define ___FUNC_THUMBR__    _______, _______
 #define ___MOUS_THUMBR__    KC_BTN1, KC_BTN2

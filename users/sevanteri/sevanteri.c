@@ -41,13 +41,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { // {{{
     switch (keycode) {
-        case CTRLESC:
-        case LGUIBSP:
-        case LCTLBSP:
-        case LALTSPC:
-        case LALTESC:
-        case LSFT_LT:
-        case RSFTSPC:
+        case MY_THL1:
+        case MY_THL2:
+        case MY_THL3:
             return false;
         default:
             return true;
@@ -57,16 +53,16 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { // {{
 
 uint16_t get_permissive_hold(uint16_t keycode, keyrecord_t *record) { // {{{
     switch (keycode) {
-        case MT_A:
-        case MT_S:
-        case MT_D:
-        case MT_F:
-        case MT_G:
-        case MT_J:
-        case MT_K:
-        case MT_L:
-        case MT_OE:
-        case MT_AE:
+        case MY_A:
+        case MY_S:
+        case MY_D:
+        case MY_F:
+        case MY_G:
+        case MY_J:
+        case MY_K:
+        case MY_L:
+        case MY_OE:
+        case MY_AE:
             return false;
         default:
             return true;
@@ -76,12 +72,7 @@ uint16_t get_permissive_hold(uint16_t keycode, keyrecord_t *record) { // {{{
 
 // custom tapping terms for keys {{{
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case SYMBSPC:
-            return TAPPING_TERM;
-        default:
-            return TAPPING_TERM;
-    }
+    return TAPPING_TERM;
 }
 // }}}
 

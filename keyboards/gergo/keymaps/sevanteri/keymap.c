@@ -43,8 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_gergo_wrapper(
     KC_TAB,  _________________QWERTY_L1_________________, /**/     /**/     /**/ /**/     /**/     _________________QWERTY_R1_________________, SE_QUOT,
-    CTRLESC, _________________QWERTY_L2_________________, SE_DIAE, /**/     /**/ /**/     SE_ARNG, _________________QWERTY_R2_________________, MT_AE,
-    LSFT_LT, _________________QWERTY_L3_________________, KC_LEAD, TD_HEMD,  /**/ KC_LEAD, _______, _________________QWERTY_R3_________________, KC_RSFT,
+    KC_ESC,  _________________QWERTY_L2_________________, SE_DIAE, /**/     /**/ /**/     SE_ARNG, _________________QWERTY_R2_________________, MY_AE,
+    KC_LSFT, _________________QWERTY_L3_________________, KC_LEAD, TD_HEMD,  /**/ KC_LEAD, _______, _________________QWERTY_R3_________________, KC_RSFT,
     /******/ /******/ /******/ /******/ ____QWERTY_L4___, _QWERTY_THUMBL__, /**/  _QWERTY_THUMBR__, ____QWERTY_R4___
     ),
 // }}}
