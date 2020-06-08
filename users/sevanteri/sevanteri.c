@@ -89,3 +89,13 @@ bool get_combo_must_hold(uint8_t index, combo_t *combo) {
 
     return false;
 }
+
+void process_combo_event(uint8_t idx, bool pressed) {
+    switch (idx) {
+        case C_RESET:
+            reset_keyboard();
+            break;
+        default:
+            break;
+    }
+}
