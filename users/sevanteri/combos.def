@@ -59,10 +59,6 @@ COMB(MUTE,   KC_MUTE,  KC_VOLU,  KC_VOLD)
 
 // COMB(RESET,    RESET,    MY_Z, MY_X, MY_C, MY_V, MY_M, MY_COMM, MY_DOT, MY_MINS)
 
-
-COMB(testmod,   KC_LSFT,       MY_E,  MY_R)
-COMB(testmod2,  LSFT_T(KC_X),  MY_E,  MY_R,  MY_T)
-
 // alt + number for browser tabs and tmux {{{
 COMB(ALTN1,            LALT(KC_1),    MY_THL2,  MY_Q)
 COMB(ALTN2,            LALT(KC_2),    MY_THL2,  MY_W)
