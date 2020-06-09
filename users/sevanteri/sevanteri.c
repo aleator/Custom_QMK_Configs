@@ -112,7 +112,25 @@ void process_combo_event(uint8_t idx, bool pressed) {
                 layer_off(FUNCL);
             }
             break;
-
+        case C_VIM_V:
+            tap_code(KC_HOME);
+            register_code(KC_LSFT);
+            tap_code(KC_END);
+            unregister_code(KC_LSFT);
+            break;
+        case C_VIM_S:
+            tap_code(KC_HOME);
+            register_code(KC_LSFT);
+            tap_code(KC_END);
+            unregister_code(KC_LSFT);
+            tap_code(KC_BSPC);
+            break;
+        case C_VIM_C:
+            register_code(KC_LSFT);
+            tap_code(KC_END);
+            unregister_code(KC_LSFT);
+            tap_code(KC_BSPC);
+            break;
         default:
             break;
     }

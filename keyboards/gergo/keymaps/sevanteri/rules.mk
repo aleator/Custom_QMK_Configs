@@ -19,7 +19,7 @@ SWAP_HANDS_ENABLE= no  # Allow swapping hands of keyboard
 
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
-LEADER_ENABLE = yes
+LEADER_ENABLE = no
 
 # enable console and command for debugging
 POINTING_DEVICE_ENABLE = no

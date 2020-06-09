@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_gergo_wrapper(
     KC_TAB,  _________________QWERTY_L1_________________, /**/     /**/     /**/ /**/     /**/     _________________QWERTY_R1_________________, SE_QUOT,
     KC_ESC,  _________________QWERTY_L2_________________, SE_DIAE, /**/     /**/ /**/     SE_ARNG, _________________QWERTY_R2_________________, MY_AE,
-    KC_LSFT, _________________QWERTY_L3_________________, KC_LEAD, TD_HEMD,  /**/ KC_LEAD, _______, _________________QWERTY_R3_________________, KC_RSFT,
+    KC_LSFT, _________________QWERTY_L3_________________, _______, TD_HEMD,  /**/ _______, _______, _________________QWERTY_R3_________________, KC_RSFT,
     /******/ /******/ /******/ /******/ ____QWERTY_L4___, _QWERTY_THUMBL__, /**/  _QWERTY_THUMBR__, ____QWERTY_R4___
     ),
 // }}}
@@ -231,40 +231,4 @@ void pointing_device_task(void) {
 }
 
 #endif
-// }}}
-
-LEADER_EXTERNS();
-void matrix_scan_user(void) { // {{{
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY(KC_B) {
-        SEND_STRING("qmk gergo"SS_LSFT(".")"sevanteri"SS_LSFT(".")"dfu");
-    }
-    SEQ_TWO_KEYS(KC_R, KC_E) {
-        reset_keyboard();
-    }
-
-    SEQ_ONE_KEY(KC_V) {
-        tap_code(KC_HOME);
-        register_code(KC_LSFT);
-        tap_code(KC_END);
-        unregister_code(KC_LSFT);
-    }
-    SEQ_ONE_KEY(KC_S) {
-        tap_code(KC_HOME);
-        register_code(KC_LSFT);
-        tap_code(KC_END);
-        unregister_code(KC_LSFT);
-        tap_code(KC_BSPC);
-    }
-    SEQ_ONE_KEY(KC_C) {
-        register_code(KC_LSFT);
-        tap_code(KC_END);
-        unregister_code(KC_LSFT);
-        tap_code(KC_BSPC);
-    }
-  }
-}
 // }}}
