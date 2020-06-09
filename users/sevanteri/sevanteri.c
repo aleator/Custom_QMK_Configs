@@ -78,14 +78,24 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 // custom combo terms for combos {{{
 uint16_t get_combo_term(uint8_t index, combo_t *combo) {
-    if (IS_MOD(combo->keycode)) return TAPPING_TERM;
+    if (KEYCODE_IS_MOD(combo->keycode)) return COMBO_MOD_TERM;
+
+    switch(index) {
+        case C_FUNCL:
+            return COMBO_MOD_TERM;
+    }
 
     return COMBO_TERM;
 }
 // }}}
 
 bool get_combo_must_hold(uint8_t index, combo_t *combo) {
-    if (IS_MOD(combo->keycode)) return true;
+    if (KEYCODE_IS_MOD(combo->keycode)) return true;
+
+    switch(index) {
+        case C_FUNCL:
+            return true;
+    }
 
     return false;
 }
@@ -95,6 +105,14 @@ void process_combo_event(uint8_t idx, bool pressed) {
         case C_RESET:
             reset_keyboard();
             break;
+        case C_FUNCL:
+            if (pressed) {
+                layer_on(FUNCL);
+            } else {
+                layer_off(FUNCL);
+            }
+            break;
+
         default:
             break;
     }

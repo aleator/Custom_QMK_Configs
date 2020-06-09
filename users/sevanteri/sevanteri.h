@@ -58,7 +58,7 @@ enum my_layers {
 #define  MY_N     KC_N
 #define  MY_M     KC_M
 #define  MY_COMM  KC_COMM
-#define  MY_DOT   KC_DOT
+#define  MY_DOT   LGUI_T(KC_DOT)
 #define  MY_MINS  LALT_T(SE_MINS)
 //}}}
 

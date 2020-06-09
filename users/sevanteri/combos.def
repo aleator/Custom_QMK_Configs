@@ -57,6 +57,8 @@ COMB(LEFTSPC,  KC_SPC,         MY_THL2,  MY_THL3)
 COMB(SLEEP,  KC_SLEP,  MY_Q,     MY_P)
 COMB(MUTE,   KC_MUTE,  KC_VOLU,  KC_VOLD)
 
+COMB(FUNCL,KC_NO,   KC_E, KC_R)
+
 COMB(RESET,KC_NO,    MY_Z, MY_X, MY_C, MY_V, MY_M, MY_COMM, MY_DOT, MY_MINS)
 
 // alt + number for browser tabs and tmux {{{
