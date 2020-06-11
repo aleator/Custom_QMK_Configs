@@ -90,6 +90,13 @@ uint16_t get_combo_term(uint8_t index, combo_t *combo) {
 // }}}
 
 bool get_combo_must_hold(uint8_t index, combo_t *combo) {
+    switch(index) {
+        case C_TLCTL:
+        case C_TLSFT:
+        case C_TLALT:
+            return false;
+    }
+
     if (KEYCODE_IS_MOD(combo->keycode)) return true;
 
     switch(index) {

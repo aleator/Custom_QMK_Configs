@@ -45,17 +45,17 @@ enum my_layers {
 #define MY_H  KC_H
 #define MY_J  KC_J
 #define MY_K  KC_K
-#define MY_L  LALT_T(KC_L)
+#define MY_L  KC_L
 #define MY_OE RCTL_T(SE_ODIA)
 
 #define MY_AE RGUI_T(SE_ADIA)
 
 #define  MY_Z     KC_Z
-#define  MY_X     KC_X
+#define  MY_X     LGUI_T(KC_X)
 #define  MY_C     KC_C
 #define  MY_V     KC_V
 #define  MY_B     KC_B
-#define  MY_N     KC_N
+#define  MY_N     RALT_T(KC_N)
 #define  MY_M     KC_M
 #define  MY_COMM  KC_COMM
 #define  MY_DOT   LGUI_T(KC_DOT)
