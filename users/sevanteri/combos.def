@@ -31,6 +31,8 @@ COMB(PREVTAB,           CSFTTAB,        MY_J,  MY_K,  MY_L)
 COMB(SEMICOLON,        SE_SCLN,       MY_N,    MY_COMM)
 COMB(DOUBLECOLON,      SE_COLN,       MY_M,    MY_DOT)
 COMB(UNDERSCORE,       SE_UNDS,       MY_COMM, MY_MINS)
+
+COMB(TMOUS,KC_NO,  MY_THR3, MY_M)
 //}}}
 
 // left hand top row {{{
@@ -52,9 +54,11 @@ COMB(DOLLAR,   RALT(KC_4),     MY_C,     MY_V)
 
 COMB(LEFTSPC,  KC_SPC,         MY_THL2,  MY_THL3)
 
-COMB(TLCTL,    KC_LCTL,    MY_THL3, MY_Z)
-COMB(TLSFT,    KC_LSFT,    MY_THL3, MY_X)
-COMB(TLALT,    KC_LALT,    MY_THL3, MY_C)
+COMB(TLCTL,        KC_LCTL,        MY_THL3,  MY_Z)
+COMB(TLSFT,        KC_LSFT,        MY_THL3,  MY_X)
+COMB(TLALT,        KC_LALT,        MY_THL3,  MY_C)
+COMB(TLSCL,        LSFT(KC_LCTL),  MY_THL3,  MY_Z,  MY_X)
+COMB(TSYMB,KC_NO,  MY_THL3,        MY_B)
 //}}}
 
 // randoms {{{

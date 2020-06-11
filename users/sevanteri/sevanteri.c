@@ -113,11 +113,16 @@ void process_combo_event(uint8_t idx, bool pressed) {
             reset_keyboard();
             break;
         case C_FUNCL:
-            if (pressed) {
-                layer_on(FUNCL);
-            } else {
-                layer_off(FUNCL);
-            }
+            if (pressed) layer_on(FUNCL);
+            else layer_off(FUNCL);
+            break;
+        case C_TSYMB:
+            if (pressed) layer_on(SYMB);
+            else layer_off(SYMB);
+            break;
+        case C_TMOUS:
+            if (pressed) layer_on(MOUS);
+            else layer_off(MOUS);
             break;
         case C_VIM_V:
             tap_code(KC_HOME);

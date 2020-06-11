@@ -16,7 +16,7 @@ enum my_layers {
 };
 
 // left thumb keys (no ignore_mod_tap_interrupt)
-#define  MY_THL1  LT(MOUS, KC_BTN1)
+#define  MY_THL1  KC_BTN1
 #define  MY_THL2  LALT_T(KC_ESC)
 #define  MY_THL3  LGUI_T(KC_BSPC)
 
