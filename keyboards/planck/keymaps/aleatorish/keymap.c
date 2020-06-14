@@ -26,7 +26,9 @@ enum planck_layers {
   _COLEMAK,
   _NAVI,
   _COMMA,
-  _DOT,
+  _QPARENS,
+  _HIGH_FS,
+  _VIM_ZETTEL,
   //_DVORAK,
   _LOWER,
   _RAISE,
@@ -51,10 +53,13 @@ enum planck_keycodes {
   MAC_BACKTICK,
 
   HS_IMPORT,
+  HS_DERIVING,
+  HS_MONOID,
   HS_QUALIFIED,
   HS_WHERE,
   HS_LET,
   HS_RETURN,
+  HS_EITHER,
   HS_TYPE,
   HS_LANGUAGE,
   HS_INSTANCE,
@@ -65,6 +70,7 @@ enum planck_keycodes {
   HS_CASE,
   HS_JUST,
   HS_NOTHING,
+  HS_MAYBE,
   HS_LEFT,
   HS_RIGHT,
 
@@ -78,10 +84,32 @@ enum planck_keycodes {
   SYM_FAP, //*
   SYM_MAPPEND, //*
   SYM_TYPE,
+  SYM_LAMBDA,
   SYM_EQ, //*
   SYM_NEQ, //*
   SYM_HOMEDIR, //*
-  SYM_EXECHERE //*
+  SYM_EXECHERE, //*
+
+  PAR_PARENS,
+  PAR_SQUARE,
+  PAR_BRACKET,
+  PAR_ANGLE,
+  PAR_QUOT,
+  PAR_DQUOT,
+  PAR_BACKTICK,
+  
+  ZETTEL_WIKI,
+  ZETTEL_EXT,
+  ZETTEL_RESOLVE,
+  ZETTEL_THREAD,
+  ZETTEL_TEMPORAL,
+  ZETTEL_SPLIT,
+  ZETTEL_FIND,
+  ZETTEL_RECENT,
+  ZETTEL_LINK,
+  ZETTEL_CREATE,
+  ZETTEL_BACKLINKS,
+  ZETTEL_NEIGHBOURS
 };
 
 // <# Custom keycodes #>
@@ -160,18 +188,21 @@ enum COMBO_KEYS {semicolon_combo_key,
                  paren_combo_key,
                  bracket_combo_key,
                  square_bracket_combo_key,
+                 hs_either_combo_key,
                  };
 
 const uint16_t PROGMEM semicolon_combo[]      = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM paren_combo[]          = {FI_LPRN, FI_RPRN, COMBO_END};
 const uint16_t PROGMEM square_bracket_combo[] = {MAC_SQLBR, MAC_SQRBR, COMBO_END};
 const uint16_t PROGMEM bracket_combo[]        = {MAC_LBR, MAC_RBR, COMBO_END};
+const uint16_t PROGMEM hs_either_combo[]      = {HS_LET, HS_RETURN, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = 
-    { [semicolon_combo_key]      = COMBO(semicolon_combo, S(KC_COMMA))
+    { [semicolon_combo_key]      = COMBO(semicolon_combo, S(KC_DOT))
     , [paren_combo_key]          = COMBO_ACTION(paren_combo)
     , [bracket_combo_key]        = COMBO_ACTION(bracket_combo)
     , [square_bracket_combo_key] = COMBO_ACTION(square_bracket_combo)
+    , [hs_either_combo_key]      = COMBO_ACTION(hs_either_combo)
 
     };
 
@@ -201,6 +232,11 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         tap_code(KC_LEFT);
 		}
 	break;
+	case hs_either_combo_key:
+		if (pressed) {
+            SEND_STRING("Either");
+		}
+	break;
   };
 }
 
@@ -225,22 +261,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 /* Qwerty ORIG
  * ,-----------------------------------------------------------------------------------.
- * | ESC  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * | ESC  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |ZETTEL|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | TAB  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   Ä  |  Ö   |
+ * | TAB  |   A  |   S  |D/PARE|F/NAVI|   G  |   H  |   J  |   K  |   L  |   Ä  |  Ö   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | HYPER|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   -  |Enter |
+ * | HYPER|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  /   |  ?   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | LSFT | Ctrl | Alt  | GUI  |↓↓BKSP|    Space    |↑↑Ent | GUI  | ALT  | CTRL | LSFT |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
-    KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,             KC_T,    KC_Y,    KC_U,             KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_TAB,   KC_A,    KC_S,    KC_D,    LT(_NAVI,KC_F),   KC_G,    KC_H,    KC_J,             KC_K,    KC_L,    FI_ADIA, FI_ODIA,
-    MT(KC_HYPR,S(KC_DOT)), KC_Z,    KC_X,    KC_C,    KC_V,             KC_B,    KC_N,    KC_M,             KC_COMM, KC_DOT,  FI_MINS,  KC_ENT ,
-    KC_LSFT,  KC_LCTL, KC_LALT, KC_LGUI, LT(LOWER,KC_BSPC),KC_SPC,  KC_SPC,  LT(RAISE,KC_ENT), KC_RGUI, KC_RALT, KC_LCTL, KC_RSFT
+    KC_ESC    , KC_Q    , KC_W    , KC_E    , KC_R        , KC_T     , KC_Y     , KC_U   , KC_I     , KC_O    , KC_P      , OSL(_VIM_ZETTEL) ,
+    LT(_COMMA , KC_TAB) , KC_A    , KC_S    , LT(_QPARENS , KC_D)    , LT(_NAVI , KC_F)  , KC_G     , KC_H    , KC_J      , KC_K    , KC_L    , FI_ODIA , FI_ADIA ,
+    KC_HYPR   , KC_Z    , KC_X    , KC_C    , KC_V        , KC_B     , KC_N     , KC_M   , KC_COMM  , KC_DOT  , MAC_SLASH , S(45) ,
+    KC_LSFT   , KC_LCTL , KC_LALT , KC_LGUI , LT(LOWER    , KC_BSPC) , KC_SPC   , KC_SPC , LT(RAISE , KC_ENT) , KC_RGUI   , KC_RALT , KC_LCTL , KC_RSFT
 ),
-
 /* <# Colemak #> 
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
@@ -279,39 +314,79 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* <# Lower #>
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |  /   |
+ * | Esc  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |      |      |  /   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  | ~/   |  =>  |  /=  |  ==  |  F1  |  F2  |   _  |   +  |   {  |   }  |  |   |
+ * | Del  | ~/   |  =>  |  /=  |  ==  |      |      |   _  |   +  |      |      |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  F3  |  ./  |  F5  |  F6  |  F7  |  F8  |  F9  |  "   |   -  |   [  |   ]  |  \   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------'
- */
-[_LOWER] = LAYOUT_planck_grid(
-    KC_ESC, FI_EXLM,     FI_AT,   FI_HASH, FI_DLR,  FI_PERC, FI_CIRC, FI_AMPR,    FI_ASTR,    FI_LPRN,  FI_RPRN, MAC_SLASH,
-    KC_DEL, SYM_HOMEDIR, SYM_LFATARR,   SYM_NEQ,   SYM_EQ,   KC_F1,   KC_F2,   FI_UNDS,    FI_PLUS,    MAC_LBR,  MAC_RBR, MAC_PIPE,
-    KC_F3,  SYM_EXECHERE,KC_F5,   KC_F6,   KC_F7,  KC_F8,  KC_F9,  S(KC_2), FI_MINS,    MAC_SQLBR, MAC_SQRBR,  MAC_BACKSLASH,
-    _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
-),
-/* Comma mode
- * ,-----------------------------------------------------------------------------------.
- * | qual | where| let  |return| type |      |      |      |      |      |      | pure |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |langua|instan| Data.| pure |mempty|      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Text | case | just | noth |      |      |      |import|      |      |      |
+ * |      |  ./  |      |      |      |      |      |  "   |   -  |      |      |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
+[_LOWER] = LAYOUT_planck_grid(
+    KC_ESC  , FI_EXLM      , FI_AT       , FI_HASH , FI_DLR  , FI_PERC , FI_CIRC , FI_AMPR , FI_ASTR , _______   , _______   , MAC_SLASH     ,
+    KC_DEL  , SYM_HOMEDIR  , SYM_LFATARR , SYM_NEQ , SYM_EQ  , _______ , _______ , FI_UNDS , FI_PLUS , _______   , _______   , MAC_PIPE      ,  
+    _______ , SYM_EXECHERE , _______     , _______ , _______ , _______ , _______ , S(KC_2) , FI_MINS , _______   , _______   , MAC_BACKSLASH , 
+    _______ , _______      , _______     , _______ , _______ , _______ , _______ , _______ , _______ , _______   , _______   , _______
+),
+/* Comma mode
+ * ,-----------------------------------------------------------------------------------.
+ * |      | Qual | Where| lEt  |Return| Type |memptY|      |Import|mOnoid| Pure |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | ***  |lAngua|inStan| Data.| LeFt |riGht |      | Just |      | Let  |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      | Text | Case |deriVi|lamBda|Noth  | Maybe|      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |             |      |      |      |      |      
+ * `-----------------------------------------------------------------------------------'
+ */
 [_COMMA] = LAYOUT_planck_grid(
-    HS_QUALIFIED, HS_WHERE, HS_LET, HS_RETURN, HS_TYPE,  _______, _______, _______, _______, _______, _______, HS_PURE,
-    HS_LANGUAGE, HS_INSTANCE, HS_DATA, HS_PURE, HS_MEMPTY,  _______, _______, _______, _______, _______, _______, _______,
-    _______, HS_TEXT, HS_CASE, HS_JUST, HS_NOTHING,  _______, _______, _______, HS_IMPORT, _______, _______, _______,
-    _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______
+    _______ , HS_QUALIFIED , HS_WHERE    , HS_EITHER , HS_RETURN   , HS_TYPE    , HS_MEMPTY  , _______  , HS_IMPORT , HS_MONOID , HS_PURE , _______ ,
+    _______ , HS_LANGUAGE  , HS_INSTANCE , HS_DATA   , HS_LEFT     , HS_RIGHT   , _______    , HS_JUST  , _______   , HS_LET    , _______ , _______ ,
+    _______ , _______      , HS_TEXT     , HS_CASE   , HS_DERIVING , SYM_LAMBDA , HS_NOTHING , HS_MAYBE , _______   , _______   , _______ , _______ ,
+    _______ , _______      , _______     , _______   , _______     , _______    , _______    , _______  , _______   , _______   , _______ , _______
+)           ,
+/* BLANK
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |  '   |  "   |  `   | (    | [    | {    | <    |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      | ***  | ''←  | ""←  | ``←  | ()←  | []←  | {}←  | <>←  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      | )    | [    | }    | >    |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_QPARENS] = LAYOUT_planck_grid(
+    _______ , _______ , _______ , _______ , FI_QUOT  , S(KC_2)   , MAC_BACKTICK , FI_LPRN    , MAC_SQLBR  , MAC_LBR     , MAC_LT    , _______ ,
+    _______ , _______ , _______ , _______ , PAR_QUOT , PAR_DQUOT , PAR_BACKTICK , PAR_PARENS , PAR_SQUARE , PAR_BRACKET , PAR_ANGLE , _______ ,
+    _______ , _______ , _______ , _______ , _______  , _______   , _______      , FI_RPRN    , MAC_SQRBR  , MAC_RBR     , MAC_GT    , _______ ,
+    _______ , _______ , _______ , _______ , _______  , _______   , _______      , _______    , _______    , _______     , _______   , _______
 ),
 
+/* ZETTEL
+ * ,-----------------------------------------------------------------------------------.
+ * |      | Wiki | Ext  | Reso | Thre |      | temp |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      | Spli |      | Find |      | Rece |      |      | Link |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |Create|      | Back | Neig |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_VIM_ZETTEL] = LAYOUT_planck_grid(
+    _______ , _______ , ZETTEL_WIKI  , ZETTEL_EXT    , ZETTEL_RESOLVE , ZETTEL_THREAD    , ZETTEL_TEMPORAL   , _______ , _______ , _______     , _______ , _______ ,
+    _______ , _______ , ZETTEL_SPLIT , _______       , ZETTEL_FIND    , _______          , ZETTEL_RECENT     , _______ , _______ , ZETTEL_LINK , _______ , _______ ,
+    _______ , _______ , _______      , ZETTEL_CREATE , _______        , ZETTEL_BACKLINKS , ZETTEL_NEIGHBOURS , _______ , _______ , _______     , _______ , _______ ,
+    _______ , _______ , _______      , _______       , _______        , _______          , _______           , _______ , _______ , _______     , _______ , _______
+),
+[_HIGH_FS] = LAYOUT_planck_grid(
+    KC_F13 , KC_F14 , KC_F15 , KC_F16 , KC_F17 ,  KC_F18 , KC_F19 , KC_F20 , KC_F21 , KC_F22 , KC_F23 , KC_F24 , 
+    S( KC_F13 ) , S( KC_F14 ) , S( KC_F15 ) , S( KC_F16 ) , S( KC_F17 ) ,  S( KC_F18 ) , S( KC_F19 ) , S( KC_F20 ) , S( KC_F21 ) , S( KC_F22 ) , S( KC_F23 ) , S( KC_F24 ) , 
+    A(S( KC_F13 )) , A(S( KC_F14 )) , A(S( KC_F15 )) , A(S( KC_F16 )) , A(S( KC_F17 )) ,  A(S( KC_F18 )) , A(S( KC_F19 )) , A(S( KC_F20 )) , A(S( KC_F21 )) , A(S( KC_F22 )) , A(S( KC_F23 )) , A(S( KC_F24 )) , 
+    _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______
+),
 /* BLANK
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -332,9 +407,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* <# Navi #>
  * ,-----------------------------------------------------------------------------------.
- * | ESC  |      |ALTTAB|      |      |      |      | S-TAB|      |      | Tab  |      |
+ * | ESC  |      |      |ALTTAB|      |      |      |      | S-TAB| TAB  |      |      |     
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Alt  | Ctrl | GUI  | **** |      |      |  ←   |   ↓  |  ↑   |  →   |      |
+ * | Shift| Alt  | Ctrl | GUI  | **** |      |      |  ←   |   ↓  |  ↑   |  →   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      | HOME | Pg↓  | Pg↑  | END  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -342,28 +417,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NAVI] = LAYOUT_planck_grid(
-    KC_ESC , _______, ALT_TAB, _______, _______,  _______, _______, _______, S(KC_TAB), _______, KC_TAB,  _______,
-    _______, KC_LALT, KC_LCTL, KC_LGUI, _______,  _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, 
-    _______, _______, _______, _______, _______,  _______, _______, KC_HOME, KC_PGDN,   KC_PGUP, KC_END,  _______,
-    _______, _______, _______, _______, _______,  _______, _______, _______, _______,   _______, _______, _______
+    KC_ESC  , _______ , _______ , ALT_TAB , _______ , _______ , _______ , S(KC_TAB) , KC_TAB  , _______ ,_______ , _______ ,
+    KC_LSFT , KC_LALT , KC_LCTL , KC_LGUI , _______ , _______ , KC_LEFT , KC_DOWN , KC_UP     , KC_RGHT , _______ , _______ ,
+    _______ , _______ , _______ , _______ , _______ , _______ , KC_HOME , KC_PGDN   , KC_PGUP , KC_END  , _______ , _______ ,
+    _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______   , _______ , _______ , _______
 ),
 
-/* <# Raise #> 
+/* <# Raise #>                    
  * ,-----------------------------------------------------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  `   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  <-  |  ->  |  .>  |  |>  |  F5  |  F6  |   -  |   =  |   <  |   >  |  '   |
+ * | Del  |  <-  |  ->  |  .>  |  |>  |      |      |   -  |   =  |   <  |   >  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  `   | <$>  |  <*> |  <>  |  >>= |  F11 |  F12 |ISO # |ISO / |Pg Up |Pg Dn |      | // REPLACE F12 With a layer for F-keys
+ * |      | <$>  |  <*> |  <>  |  >>= |      |      |ISO # |ISO / |      |   ?  |  ~   | // REPLACE F12 With a layer for F-keys 
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play | 
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    KC_ESC, KC_1,    KC_2,    KC_3,        KC_4,         KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    MAC_BACKTICK,
-    KC_DEL, SYM_RARR,SYM_LARR,SYM_COMP_ARR,SYM_APP_ARR,  KC_F5,   KC_F6,   FI_MINS, FI_EQL,  MAC_LT, MAC_GT,   FI_QUOT,
-    KC_GRV, SYM_FMAP,SYM_FAP, SYM_MAPPEND, SYM_BIND,     KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN,  FI_TILD,
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+    KC_ESC  , KC_1     , KC_2     , KC_3         , KC_4        , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , MAC_BACKTICK ,
+    KC_DEL  , SYM_RARR , SYM_LARR , SYM_COMP_ARR , SYM_APP_ARR , _______ , _______ , FI_MINS , FI_EQL  , MAC_LT  , MAC_GT  , FI_QUOT      ,
+    _______ , SYM_FMAP , SYM_FAP  , SYM_MAPPEND  , SYM_BIND    , _______ , _______ , KC_NUHS , KC_NUBS , _______ , S(45)   , FI_TILD      ,
+    _______ , _______  , _______  , _______      , _______     , _______ , _______ , _______ , KC_MNXT , KC_VOLD , KC_VOLU , KC_MPLY
 ),
 
 /* Plover layer (http://opensteno.org)
@@ -415,6 +490,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 // <# PROCESS RECORD MACROS #>
 #define SIMPLE(KC,SS) case KC :  if(record->event.pressed) { SEND_STRING(SS); } break;
+#define SURROUND(KC,LEFT,RIGHT) case KC :  if(record->event.pressed) {tap_code16(LEFT);tap_code16(RIGHT);tap_code(KC_LEFT);} break;
 
 // <# PROCESS RECORD #>
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -527,10 +603,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              return false;
 
   SIMPLE(HS_IMPORT,"import ")
+  SIMPLE(HS_DERIVING,"deriving ")
+  SIMPLE(HS_MONOID,"Monoid")
   SIMPLE(HS_QUALIFIED,"qualified ")
   SIMPLE(HS_WHERE,"where")
   SIMPLE(HS_LET,"let")
   SIMPLE(HS_RETURN,"return")
+  SIMPLE(HS_EITHER,"Either")
   SIMPLE(HS_TYPE,"type")
   case HS_LANGUAGE:
              if(record->event.pressed) {
@@ -538,13 +617,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         register_code(KC_RALT);
                         tap_code(KC_8);
                         unregister_code(KC_RALT);
-                        tap_code(KC_3);
                         unregister_code(KC_LSFT);
-                        tap_code(FI_MINS);
-                        SEND_STRING(" LANGUAGE  ");
                         tap_code(FI_MINS);
                         register_code(KC_LSFT);
                         tap_code(KC_3);
+                        unregister_code(KC_LSFT);
+
+                        SEND_STRING(" LANGUAGE  ");
+
+                        register_code(KC_LSFT);
+                        tap_code(KC_3);
+                        unregister_code(KC_LSFT);
+                        tap_code(FI_MINS);
+
+                        register_code(KC_LSFT);
                         register_code(KC_RALT);
                         tap_code(KC_9);
                         unregister_code(KC_LSFT);
@@ -560,6 +646,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   SIMPLE(HS_PURE,"pure")
   SIMPLE(HS_MEMPTY,"mempty")
   SIMPLE(HS_TEXT,"Text")
+  case SYM_LAMBDA:
+             if(record->event.pressed) {
+                        tap_code16(MAC_BACKSLASH);
+                        tap_code(KC_SPC);
+                        tap_code(FI_MINS);
+                        tap_code16(MAC_GT);
+                        tap_code(KC_LEFT);
+                        tap_code(KC_LEFT);
+                        tap_code(KC_LEFT);
+             } 
+             break;
   case HS_CASE:
              if(record->event.pressed) {
                         SEND_STRING("case  of");
@@ -570,6 +667,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              break;
  SIMPLE(HS_JUST,"Just")
  SIMPLE(HS_NOTHING,"Nothing")
+ SIMPLE(HS_MAYBE,"Maybe")
  SIMPLE(HS_LEFT,"Left")
  SIMPLE(HS_RIGHT,"Right")
  SIMPLE(SYM_LARR, (SS_TAP(38)SS_DOWN(e5)SS_TAP(35)SS_UP(e5)))//"->")
@@ -586,6 +684,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  SIMPLE(SYM_NEQ, SS_DOWN(e5)SS_TAP(24)SS_TAP(27)SS_UP(e5))// "/="
  SIMPLE(SYM_HOMEDIR, SS_DOWN(e6)SS_TAP(30)SS_UP(e6)SS_TAP(2c)SS_DOWN(e5)SS_TAP(24)SS_UP(e5))// "~/"
  SIMPLE(SYM_EXECHERE, SS_TAP(2c)SS_DOWN(e5)SS_TAP(24)SS_UP(e5))// "./"
+
+ SURROUND(PAR_PARENS,FI_LPRN,FI_RPRN) // ()←
+ SURROUND(PAR_SQUARE,MAC_SQLBR,MAC_SQRBR) // []←
+ SURROUND(PAR_BRACKET,MAC_LBR,MAC_RBR) // {}←
+ SURROUND(PAR_ANGLE,MAC_LT,MAC_GT) // {}←
+
+ SURROUND(PAR_QUOT,FI_QUOT,FI_QUOT) // ''←
+ SURROUND(PAR_DQUOT,S(KC_2),S(KC_2)) // ""←
+    case PAR_BACKTICK:
+             if(record->event.pressed) {
+                 register_code(KC_LSFT);tap_code(46);unregister_code(KC_LSFT);tap_code(44);
+                 register_code(KC_LSFT);tap_code(46);unregister_code(KC_LSFT);tap_code(44);
+                 tap_code(KC_LEFT);
+             }
+             return false;
+    break;
+  SIMPLE(ZETTEL_WIKI,",zw")
+  SIMPLE(ZETTEL_EXT,",ze")
+  SIMPLE(ZETTEL_RESOLVE,",zr")
+  SIMPLE(ZETTEL_THREAD,",zt")
+  SIMPLE(ZETTEL_TEMPORAL,",zT")
+  SIMPLE(ZETTEL_SPLIT,",zs")
+  SIMPLE(ZETTEL_FIND,",zf")
+  SIMPLE(ZETTEL_RECENT,",zr")
+  SIMPLE(ZETTEL_LINK,",zl")
+  SIMPLE(ZETTEL_CREATE,":Zcre "SS_TAP(49)SS_TAP(49)SS_TAP(X_LEFT))
+  SIMPLE(ZETTEL_BACKLINKS,",zb")
+  SIMPLE(ZETTEL_NEIGHBOURS,",zn")
 
     case QWERTY:
       if (record->event.pressed) {

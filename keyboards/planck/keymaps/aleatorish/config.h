@@ -40,5 +40,5 @@
 
 #define FORCE_NKRO
 #define COMBO_ALLOW_ACTION_KEYS
-#define COMBO_COUNT 4
+#define COMBO_COUNT 5
 #define COMBO_TERM 150
