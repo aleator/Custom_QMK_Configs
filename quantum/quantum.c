@@ -46,10 +46,6 @@ extern backlight_config_t backlight_config;
 #    include "haptic.h"
 #endif
 
-#ifdef ENCODER_ENABLE
-#    include "encoder.h"
-#endif
-
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -175,6 +171,18 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
+/* Get keycode, and then process pre tapping functionality */
+bool pre_process_record_quantum(keyrecord_t *record) {
+    if (!(
+#ifdef COMBO_ENABLE
+        process_combo(get_record_keycode(record, true), record) &&
+#endif
+        true)) {
+        return false;
+    }
+    return true; // continue processing
+}
+
 /* Get keycode, and then call keyboard function */
 void post_process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, false);
@@ -256,9 +264,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
-#endif
-#ifdef COMBO_ENABLE
-            process_combo(keycode, record) &&
 #endif
 #ifdef PRINTING_ENABLE
             process_printer(keycode, record) &&
@@ -618,9 +623,6 @@ void matrix_init_quantum() {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
 #endif
-#ifdef ENCODER_ENABLE
-    encoder_init();
-#endif
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
 #endif
@@ -629,9 +631,6 @@ void matrix_init_quantum() {
 #endif
 #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
-#endif
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_init();
 #endif
 
     matrix_init_kb();
@@ -656,10 +655,6 @@ void matrix_scan_quantum() {
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
-#endif
-
-#ifdef ENCODER_ENABLE
-    encoder_read();
 #endif
 
 #ifdef WPM_ENABLE

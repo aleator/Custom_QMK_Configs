@@ -179,6 +179,18 @@ If you define these options you will enable the associated feature, which may in
   * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
+* `#define COMBO_MUST_HOLD_MODS`
+  * Flag for enabling extending timeout on Combos containing modifers
+* `#define COMBO_MOD_TERM 200`
+  * Allows for extending COMBO_TERM for mod keys while mid-combo. 
+* `#define COMBO_MUST_HOLD_PER_COMBO`
+  * Flag to enable per-combo COMBO_TERM extension and `get_combo_must_hold()` function
+* `#define COMBO_TERM_PER_COMBO`
+  * Flag to enable per-combo COMBO_TERM extension and `get_combo_term()` function
+* `#define VARIABLE_COMBO_LEN`
+  * Flag for defining the number of Combos in user keymaps dynamically
+* `#define COMBO_PERMISSIVE_HOLD`
+  * Flag for allowing Tap-Mod style combo usage
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 * `#define TAP_HOLD_CAPS_DELAY 80`
@@ -191,7 +203,14 @@ If you define these options you will enable the associated feature, which may in
 * `#define RGBLIGHT_ANIMATIONS`
   * run RGB animations
 * `#define RGBLIGHT_LAYERS`
-  * Lets you define [lighting layers](feature_rgblight.md) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
+  * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
+* `#define RGBLIGHT_MAX_LAYERS`
+  * Defaults to 8. Can be expanded up to 32 if more [lighting layers](feature_rgblight.md?id=lighting-layers) are needed.
+  * Note: Increasing the maximum will increase the firmware size and slow sync on split keyboards.
+* `#define RGBLIGHT_LAYER_BLINK` 
+  * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
+* `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
+  * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
 * `#define RGBLED_NUM 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
