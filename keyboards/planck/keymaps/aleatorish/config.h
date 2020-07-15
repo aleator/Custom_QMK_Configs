@@ -37,8 +37,9 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 #define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT 1
 
 #define FORCE_NKRO
 #define COMBO_ALLOW_ACTION_KEYS
-#define COMBO_COUNT 5
+#define COMBO_COUNT 6
 #define COMBO_TERM 150

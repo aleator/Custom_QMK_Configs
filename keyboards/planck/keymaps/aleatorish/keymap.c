@@ -29,6 +29,7 @@ enum planck_layers {
   _QPARENS,
   _HIGH_FS,
   _VIM_ZETTEL,
+  _SYMB,
   //_DVORAK,
   _LOWER,
   _RAISE,
@@ -52,6 +53,8 @@ enum planck_keycodes {
   QUESTION_HOLD,
   MAC_BACKTICK,
 
+  QUIT_TRANS,
+
   HS_IMPORT,
   HS_DERIVING,
   HS_MONOID,
@@ -62,6 +65,7 @@ enum planck_keycodes {
   HS_EITHER,
   HS_TYPE,
   HS_LANGUAGE,
+  HS_BLOCK_COMM,
   HS_INSTANCE,
   HS_DATA,
   HS_PURE,
@@ -116,7 +120,7 @@ enum planck_keycodes {
 #define LOWER MO(_LOWER)
 #define NAVI MO(_NAVI)
 #define COMMA MO(_COMMA)
-#define RAISE MO(_RAISE)
+#define RAISE TG(_RAISE)
 
 #define MAC_LBR S(RALT(KC_8))
 #define MAC_RBR S(RALT(KC_9))
@@ -185,56 +189,35 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // <# Combos #>
 enum COMBO_KEYS {semicolon_combo_key,
-                 paren_combo_key,
-                 bracket_combo_key,
-                 square_bracket_combo_key,
-                 hs_either_combo_key,
+                 vim_write,
+                 ctrlr_key,
+                 ctrll_key,
+                 shiftl_key,
+                 shiftr_key
                  };
 
 const uint16_t PROGMEM semicolon_combo[]      = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM paren_combo[]          = {FI_LPRN, FI_RPRN, COMBO_END};
-const uint16_t PROGMEM square_bracket_combo[] = {MAC_SQLBR, MAC_SQRBR, COMBO_END};
-const uint16_t PROGMEM bracket_combo[]        = {MAC_LBR, MAC_RBR, COMBO_END};
-const uint16_t PROGMEM hs_either_combo[]      = {HS_LET, HS_RETURN, COMBO_END};
+const uint16_t PROGMEM comma_colon_w[]        = {KC_COMM, KC_DOT, KC_W, COMBO_END};
+const uint16_t PROGMEM ctrl_r_combo[]        =  {LT(_QPARENS , KC_D), LT(_NAVI,KC_F), KC_G, COMBO_END};
+const uint16_t PROGMEM ctrl_l_combo[]        =  {KC_H, KC_J, KC_K,COMBO_END};
+const uint16_t PROGMEM shiftl_combo[]         = {KC_E,KC_R, KC_T, COMBO_END};
+const uint16_t PROGMEM shiftr_combo[]         = {KC_Y, KC_U,KC_I, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = 
     { [semicolon_combo_key]      = COMBO(semicolon_combo, S(KC_DOT))
-    , [paren_combo_key]          = COMBO_ACTION(paren_combo)
-    , [bracket_combo_key]        = COMBO_ACTION(bracket_combo)
-    , [square_bracket_combo_key] = COMBO_ACTION(square_bracket_combo)
-    , [hs_either_combo_key]      = COMBO_ACTION(hs_either_combo)
-
+    , [vim_write]                = COMBO_ACTION(comma_colon_w)
+    , [ctrlr_key]                = COMBO(ctrl_r_combo,KC_RCTL)
+    , [ctrll_key]                = COMBO(ctrl_l_combo,KC_LCTL)
+    , [shiftl_key]               = COMBO(shiftl_combo,KC_LSFT)
+    , [shiftr_key]               = COMBO(shiftr_combo,KC_RSFT)
     };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
 
   switch(combo_index) {
-	case paren_combo_key:
+	case vim_write:
 		if (pressed) {
-        register_code(KC_LSFT);tap_code(KC_8); tap_code(KC_9); unregister_code(KC_LSFT); tap_code(KC_LEFT);
-		}
-	break;
-	case bracket_combo_key:
-		if (pressed) {
-        register_code(KC_RALT);
-        register_code(KC_RSFT);
-        tap_code(KC_8); tap_code(KC_9); 
-        unregister_code(KC_RALT);
-        unregister_code(KC_RSFT);
-        tap_code(KC_LEFT);
-		}
-	break;
-	case square_bracket_combo_key:
-		if (pressed) {
-        register_code(KC_RALT);
-        tap_code(KC_8); tap_code(KC_9); 
-        unregister_code(KC_RALT);
-        tap_code(KC_LEFT);
-		}
-	break;
-	case hs_either_combo_key:
-		if (pressed) {
-            SEND_STRING("Either");
+        tap_code(KC_ESC);register_code(KC_LSFT); tap_code(KC_DOT); unregister_code(KC_LSFT); tap_code(KC_W); tap_code(KC_ENT);
 		}
 	break;
   };
@@ -243,6 +226,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* <# Qwerty #>
+ *                              
  * ,-----------------------------------------------------------------------------------.
  * | Q    |  W   |   E  |   R  |   T  |Qs/w/q| Qc/x |   Y  |   U  |   I  |   O  | P    |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -256,25 +240,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q  ,  KC_W,    KC_E,    KC_R,             KC_T,   TD(TD_SAVE_QUIT),  TD(TD_COPY_CUT), KC_Y,    KC_U,    KC_I,    ODIA_HOLD,    KC_P   ,
     KC_A  ,  KC_S,    KC_D,    LT(_NAVI,KC_F),   KC_G,   MT(MOD_HYPR,KC_ESC),      RGUI(KC_V), KC_H,    KC_J,    KC_K,    KC_L   , FI_ADIA ,  // KC_SCLN
     KC_Z   , KC_X,    KC_C,    KC_V,             KC_B,    RGUI(KC_Z), ALE_COLON, KC_N,    KC_M,    LT(COMMA,KC_COMM), QUESTION_HOLD , FI_ODIA ,
-    BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LT(LOWER,KC_BSPC),   KC_SPC_TAB,  KC_SPC_TAB,  LT(RAISE,KC_ENT),   KC_RGUI, KC_RALT, KC_LCTL, KC_RSFT
+    RAISE, KC_LCTL, KC_LALT, KC_LGUI, LT(LOWER,KC_BSPC),   KC_SPC_TAB,  KC_SPC_TAB,  LT(_RAISE,KC_ENT),   KC_RGUI, KC_RALT, KC_LCTL, KC_RSFT
 ),
  */
 /* Qwerty ORIG
+ *  <C> = Chord control
+ *  <S> = Chord Shift
  * ,-----------------------------------------------------------------------------------.
- * | ESC  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |ZETTEL|
+ * | ESC  |   Q  |   W  |   E  |   R <S>  T  |   Y <S>  U  |   I  |   O  |   P  |ZETTEL|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | TAB  |   A  |   S  |D/PARE|F/NAVI|   G  |   H  |   J  |   K  |   L  |   Ä  |  Ö   |
+ * | TAB/C|A/SHFT|   S  |D/PARE|F/NAV<C>  G  |   H <C>  J  |   K  |   L  |Ä/SHFT|  Ö   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | HYPER|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  /   |  ?   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | LSFT | Ctrl | Alt  | GUI  |↓↓BKSP|    Space    |↑↑Ent | GUI  | ALT  | CTRL | LSFT |
+ * | LSFT | Ctrl | Alt  |GUI\* |↓↓BKSP|    Space    |↑↑Ent | GUI  | ALT  | CTRL | LSFT |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_ESC    , KC_Q    , KC_W    , KC_E    , KC_R        , KC_T     , KC_Y     , KC_U   , KC_I     , KC_O    , KC_P      , OSL(_VIM_ZETTEL) ,
-    LT(_COMMA , KC_TAB) , KC_A    , KC_S    , LT(_QPARENS , KC_D)    , LT(_NAVI , KC_F)  , KC_G     , KC_H    , KC_J      , KC_K    , KC_L    , FI_ODIA , FI_ADIA ,
+    LT(_COMMA , KC_TAB) , MT(MOD_LSFT,KC_A)    , KC_S    , LT(_QPARENS , KC_D)    , LT(_NAVI , KC_F)  , KC_G     , KC_H    , KC_J      , KC_K    , KC_L    , MT(MOD_RSFT,FI_ODIA) , FI_ADIA ,
     KC_HYPR   , KC_Z    , KC_X    , KC_C    , KC_V        , KC_B     , KC_N     , KC_M   , KC_COMM  , KC_DOT  , MAC_SLASH , S(45) ,
-    KC_LSFT   , KC_LCTL , KC_LALT , KC_LGUI , LT(LOWER    , KC_BSPC) , KC_SPC   , KC_SPC , LT(RAISE , KC_ENT) , KC_RGUI   , KC_RALT , KC_LCTL , KC_RSFT
+    RAISE     , KC_LCTL , KC_LALT , MT(MOD_LGUI,FI_ASTR) , LT(LOWER    , KC_BSPC) , KC_SPC   , KC_SPC , LT(_RAISE , KC_ENT) , KC_RGUI   , KC_RALT , KC_LCTL , KC_RSFT
 ),
 /* <# Colemak #> 
  * ,-----------------------------------------------------------------------------------.
@@ -314,22 +300,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* <# Lower #>
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |      |      |  /   |
+ * | Esc  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |  +   |  -   |  /   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  | ~/   |  =>  |  /=  |  ==  |      |      |   _  |   +  |      |      |  |   |
+ * | Del  | ~/   |  =>  |  /=  |  ==  |      |      |   _  |   =  |  =   |      |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  ./  |      |      |      |      |      |  "   |   -  |      |      |  \   |
+ * |      |  ./  |      |      |      |      |      |  "   |      |      |      |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_ESC  , FI_EXLM      , FI_AT       , FI_HASH , FI_DLR  , FI_PERC , FI_CIRC , FI_AMPR , FI_ASTR , _______   , _______   , MAC_SLASH     ,
-    KC_DEL  , SYM_HOMEDIR  , SYM_LFATARR , SYM_NEQ , SYM_EQ  , _______ , _______ , FI_UNDS , FI_PLUS , _______   , _______   , MAC_PIPE      ,  
-    _______ , SYM_EXECHERE , _______     , _______ , _______ , _______ , _______ , S(KC_2) , FI_MINS , _______   , _______   , MAC_BACKSLASH , 
+    KC_ESC  , FI_EXLM      , FI_AT       , FI_HASH , FI_DLR  , FI_PERC , FI_CIRC , FI_AMPR , FI_ASTR , FI_PLUS   , FI_MINS   , MAC_SLASH     ,
+    KC_DEL  , SYM_HOMEDIR  , SYM_LFATARR , SYM_NEQ , SYM_EQ  , _______ , _______ , FI_UNDS , FI_EQL , FI_EQL   , _______   , MAC_PIPE      ,  
+    _______ , SYM_EXECHERE , _______     , _______ , _______ , _______ , _______ , S(KC_2) , _______ , _______   , _______   , MAC_BACKSLASH , 
     _______ , _______      , _______     , _______ , _______ , _______ , _______ , _______ , _______ , _______   , _______   , _______
 ),
-/* Comma mode
+/* <# Comma mode #>
  * ,-----------------------------------------------------------------------------------.
  * |      | Qual | Where| lEt  |Return| Type |memptY|      |Import|mOnoid| Pure |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -346,7 +332,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ , _______      , HS_TEXT     , HS_CASE   , HS_DERIVING , SYM_LAMBDA , HS_NOTHING , HS_MAYBE , _______   , _______   , _______ , _______ ,
     _______ , _______      , _______     , _______   , _______     , _______    , _______    , _______  , _______   , _______   , _______ , _______
 )           ,
-/* BLANK
+/* <# QPARENS #>
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |  '   |  "   |  `   | (    | [    | {    | <    |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -364,7 +350,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ , _______ , _______ , _______ , _______  , _______   , _______      , _______    , _______    , _______     , _______   , _______
 ),
 
-/* ZETTEL
+/* <# ZETTEL #>
  * ,-----------------------------------------------------------------------------------.
  * |      | Wiki | Ext  | Reso | Thre |      | temp |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -387,7 +373,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     A(S( KC_F13 )) , A(S( KC_F14 )) , A(S( KC_F15 )) , A(S( KC_F16 )) , A(S( KC_F17 )) ,  A(S( KC_F18 )) , A(S( KC_F19 )) , A(S( KC_F20 )) , A(S( KC_F21 )) , A(S( KC_F22 )) , A(S( KC_F23 )) , A(S( KC_F24 )) , 
     _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______
 ),
-/* BLANK
+/* <# SYMB #>
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+[_SYMB] = LAYOUT_planck_grid(
+    _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______
+),
+ */
+/* <# BLANK #>
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -427,18 +430,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  `   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  <-  |  ->  |  .>  |  |>  |      |      |   -  |   =  |   <  |   >  |  '   |
+ * | Del  |  <-  |  ->  |  .>  |  |>  | {--} |      |   4  |   5  |   6  |      |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | <$>  |  <*> |  <>  |  >>= |      |      |ISO # |ISO / |      |   ?  |  ~   | // REPLACE F12 With a layer for F-keys 
+ * |      | <$>  |  <*> |  <>  |  >>= |      |      |   1  |   2  |   3  |      |  ~   | // REPLACE F12 With a layer for F-keys 
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play | 
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    KC_ESC  , KC_1     , KC_2     , KC_3         , KC_4        , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , MAC_BACKTICK ,
-    KC_DEL  , SYM_RARR , SYM_LARR , SYM_COMP_ARR , SYM_APP_ARR , _______ , _______ , FI_MINS , FI_EQL  , MAC_LT  , MAC_GT  , FI_QUOT      ,
-    _______ , SYM_FMAP , SYM_FAP  , SYM_MAPPEND  , SYM_BIND    , _______ , _______ , KC_NUHS , KC_NUBS , _______ , S(45)   , FI_TILD      ,
-    _______ , _______  , _______  , _______      , _______     , _______ , _______ , _______ , KC_MNXT , KC_VOLD , KC_VOLU , KC_MPLY
+    KC_ESC  , KC_1     , KC_2     , KC_3         , KC_4        , KC_5          , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , MAC_BACKTICK ,
+    KC_DEL  , SYM_RARR , SYM_LARR , SYM_COMP_ARR , SYM_APP_ARR , HS_BLOCK_COMM , QUIT_TRANS , KC_4    , KC_5    , KC_6    , QUIT_TRANS  , FI_QUOT      ,
+    QUIT_TRANS , SYM_FMAP , SYM_FAP  , SYM_MAPPEND  , SYM_BIND    , QUIT_TRANS       , QUIT_TRANS , KC_1    , KC_2    , KC_3    , QUIT_TRANS   , FI_TILD      ,
+    QUIT_TRANS , QUIT_TRANS  , QUIT_TRANS  , QUIT_TRANS      , QUIT_TRANS     , QUIT_TRANS       , QUIT_TRANS , QUIT_TRANS , KC_MNXT , KC_VOLD , KC_VOLU , KC_MPLY
 ),
 
 /* Plover layer (http://opensteno.org)
@@ -498,7 +501,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t space_timer;
   static uint16_t held_char=0;
   static bool alt_tab_alt=false;
+  static uint16_t fallthrough;
 
+  
   // If last press was ALT_TAB, and this one isn't, release the left alt
   if (record->event.pressed && keycode != ALT_TAB && alt_tab_alt) {
       unregister_code(KC_LGUI); // But, it is gui tab on my mac
@@ -517,6 +522,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       held_char = 0;
   }
   switch (keycode) {
+    case QUIT_TRANS:
+      if (record->event.pressed) {
+        // OR these two because layer_state does not include the default layer
+        uint32_t state = (layer_state | default_layer_state);
+        uint8_t next_active_layer = biton32(state ^ (1Ul<<biton32(state)));
+        
+        fallthrough = keymap_key_to_keycode(next_active_layer, record->event.key);
+
+        register_code(fallthrough);
+        // Toggle the highest layer off.
+        layer_invert(get_highest_layer(layer_state));
+      } else {
+        unregister_code(fallthrough);
+      }
+      return false;
+      break;
+
     case QUESTION_HOLD:
              if(record->event.pressed) {
                          ale_colon_timer = timer_read();
@@ -600,7 +622,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                        tap_code(KC_ENTER);
                        }
                     }
-             return false;
+            return false;
 
   SIMPLE(HS_IMPORT,"import ")
   SIMPLE(HS_DERIVING,"deriving ")
@@ -611,6 +633,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   SIMPLE(HS_RETURN,"return")
   SIMPLE(HS_EITHER,"Either")
   SIMPLE(HS_TYPE,"type")
+  case HS_BLOCK_COMM:
+             if(record->event.pressed) {
+                 tap_code16(S(A(KC_8)));
+                 tap_code16(FI_MINS);
+                 tap_code16(FI_MINS);
+                 tap_code16(S(A(KC_9)));
+                 tap_code(KC_LEFT);
+                 tap_code(KC_LEFT);
+             }
+             break;
+    
   case HS_LANGUAGE:
              if(record->event.pressed) {
                         register_code(KC_LSFT);
