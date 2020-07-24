@@ -2,4 +2,5 @@ make  planck/rev6:aleatorish # Build my planck customization
 make  atreus/promicro:Functor_Atreus # Build my atreus
 make  minidox/rev1:Minidox-fi # Build Marias Minidox
 nvr quantum/keymap_extras/keymap_finnish.h # Show the finnish layout keycode names
-nvim keyboards/planck/keymaps/aleatorish/keymap.c # Edit the plank layout
+nvr keyboards/planck/keymaps/aleatorish/keymap.c # Edit the plank layout
+nvr keyboards/atreus/keymaps/Functor_Atreus # Edit the Atreus layout
