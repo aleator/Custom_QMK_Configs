@@ -121,16 +121,25 @@ enum custom_keycodes {
 
 enum COMBO_KEYS {semicolon_combo_key,
                  vim_write,
+                 vim_quit,
+                 vim_split,
+                 vim_end_dot,
                  toggle_numbers
                  };
 
 const uint16_t PROGMEM semicolon_combo[]      = {LT(_HASKELL,KC_COMM), KC_DOT, COMBO_END};
 const uint16_t PROGMEM comma_colon_w[]        = {LT(_HASKELL,KC_COMM), KC_DOT, KC_W, COMBO_END};
-const uint16_t PROGMEM n_m[]              = {KC_N, KC_M, COMBO_END};
+const uint16_t PROGMEM comma_colon_q[]        = {LT(_HASKELL,KC_COMM), KC_DOT, KC_Q, COMBO_END};
+const uint16_t PROGMEM comma_colon_e[]        = {LT(_HASKELL,KC_COMM), KC_DOT, KC_E, COMBO_END};
+const uint16_t PROGMEM comma_colon_s[]        = {LT(_HASKELL,KC_COMM), KC_DOT, KC_S, COMBO_END};
+const uint16_t PROGMEM n_m[]                  = {KC_N, KC_M, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = 
     { [semicolon_combo_key]      = COMBO(semicolon_combo, S(KC_DOT))
     , [vim_write]                = COMBO_ACTION(comma_colon_w)
+    , [vim_quit]                 = COMBO_ACTION(comma_colon_q)
+    , [vim_split]                = COMBO_ACTION(comma_colon_s)
+    , [vim_end_dot]              = COMBO_ACTION(comma_colon_e)
     , [toggle_numbers]           = COMBO_ACTION(n_m)
     };
 
@@ -142,6 +151,31 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 tap_code16(S(KC_DOT));
                 tap_code(KC_W);
                 tap_code(KC_ENT);
+            }
+            break;
+        case vim_quit:
+            if (pressed) {
+                tap_code(KC_ESC);
+                tap_code16(S(KC_DOT));
+                tap_code(KC_Q);
+                tap_code(KC_ENT);
+            }
+            break;
+        case vim_split:
+            if (pressed) {
+                tap_code(KC_ESC);
+                tap_code16(S(KC_DOT));
+                tap_code(KC_S);
+                tap_code(KC_P);
+                tap_code(KC_SPC);
+            }
+            break;
+        case vim_end_dot:
+            if (pressed) {
+                tap_code(KC_ESC);
+                tap_code16(S(KC_A));
+                tap_code(KC_DOT);
+                tap_code(KC_ESC);
             }
             break;
         case toggle_numbers:
@@ -178,8 +212,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_EXTEND] = LAYOUT( 
     _______       , SHIFT_ALT_TAB , ALT_TAB       , _______ , _______ , _______ , _______ , _______ , _______ , _______ ,
-    OSM(MOD_LSFT) , OSM(MOD_LALT) , OSM(MOD_LCTL) , _______ , _______ , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , _______ ,
-    _______       , _______       , LGUI(KC_DOT)  , _______ , _______ , KC_HOME , KC_PGDN , KC_PGUP , KC_END  , _______ ,
+    OSM(MOD_LSFT) , OSM(MOD_LCTL) , OSM(MOD_LGUI) , _______ , _______ , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , _______ ,
+    _______       , OSM(MOD_LALT) , LGUI(KC_DOT)  , _______ , _______ , KC_HOME , KC_PGDN , KC_PGUP , KC_END  , _______ ,
     _______       , _______       , _______       , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______
   ),
   [_BRACKET] = LAYOUT( 

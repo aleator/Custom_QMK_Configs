@@ -3,7 +3,7 @@
 
 #define FORCE_NKRO
 #define COMBO_ALLOW_ACTION_KEYS
-#define COMBO_COUNT 3
+#define COMBO_COUNT 6
 #define COMBO_TERM 150
 
 #define NO_ACTION_MACRO
